@@ -21,7 +21,7 @@ class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCaro
         let carousel = LGCarousel(frame: CGRect(x: 20, y: CGFloat.navbar_statusbar_height+10, width: CGFloat.screen_width-40, height: 160))
         carousel.itemSize = CGSize.init(width: CGFloat.screen_width-80, height: 160)
         carousel.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        carousel.registerClass(itemClass: LGCarouselItemView.self, reuseIdentifier: "LGCarouselItemView")
+        carousel.registerClass(itemClass: LGCarouselImageItemView.self, reuseIdentifier: "LGCarouselImageItemView")
         carousel.layer.borderColor = UIColor.red.cgColor
         carousel.layer.borderWidth = 1
         return carousel
@@ -70,8 +70,7 @@ class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCaro
     }
     
     func carouselItemView(_ carousel: LGCarousel, itemView: LGCarouselItemView, itemIndex: UInt) {
-        let temp:CGFloat = CGFloat((itemIndex*10+50)%256)/255.0
-        itemView.backgroundColor = UIColor(red: temp, green: temp, blue: temp, alpha: 1)
+        (itemView as! LGCarouselImageItemView).imageView.image = UIImage.init(contentsOfFile:  Bundle.main.path(forResource: String(format: "scenery_%lu", itemIndex+1), ofType: "JPG")!)
     }
     
     @objc func buttonClick(_ button: UIButton) -> Void {

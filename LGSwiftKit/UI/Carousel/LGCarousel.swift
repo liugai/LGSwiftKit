@@ -177,7 +177,6 @@ extension LGCarousel {
     
     private func assertHandle() -> Void {
         assert(self.itemClass != nil, "必须注册item类视图")
-        assert(self.itemClass! is LGCarouselItemView.Type, "必须是继承自LGCarouselItemView类")
         assert(!String.isEmpty(str: self.reuseIdentifier), "重用标识必须有效")
     }
 }
@@ -790,8 +789,7 @@ extension LGCarousel {
         if results.count>0 {
             return results.first!
         }
-        
-        let itemView = LGCarouselItemView()
+        let itemView = self.itemClass!.itemView()
         itemView.reuseIdentifier = self.reuseIdentifier!
         return itemView
     }
@@ -818,7 +816,6 @@ extension LGCarousel {
     }
     
     @objc private func autoScrollAction() -> Void {
-        let cur = self.scrollView.contentOffset.x
         let willOffsetX = CGFloat((self.currentIndexPath.pageIndex+1))*self.pageWidth()
         self.scrollView.setContentOffset(CGPoint(x:willOffsetX , y: 0), animated: true)
     }

@@ -7,30 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		496D720326FD5FA500D4CD26 /* LGCarouselDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D720226FD5FA500D4CD26 /* LGCarouselDemoViewController.swift */; };
+		492C173627058F49009816F0 /* LGCarouselImageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C171C27058F49009816F0 /* LGCarouselImageItemView.swift */; };
+		492C173727058F49009816F0 /* LGCarouselDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492C171D27058F49009816F0 /* LGCarouselDemoViewController.swift */; };
+		492C173827058F49009816F0 /* scenery_22.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C171F27058F49009816F0 /* scenery_22.JPG */; };
+		492C173927058F49009816F0 /* scenery_23.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172027058F49009816F0 /* scenery_23.JPG */; };
+		492C173A27058F49009816F0 /* scenery_21.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172127058F49009816F0 /* scenery_21.JPG */; };
+		492C173B27058F4A009816F0 /* scenery_20.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172227058F49009816F0 /* scenery_20.JPG */; };
+		492C173C27058F4A009816F0 /* scenery_18.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172327058F49009816F0 /* scenery_18.JPG */; };
+		492C173D27058F4A009816F0 /* scenery_19.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172427058F49009816F0 /* scenery_19.JPG */; };
+		492C173E27058F4A009816F0 /* scenery_9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172527058F49009816F0 /* scenery_9.JPG */; };
+		492C173F27058F4A009816F0 /* scenery_8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172627058F49009816F0 /* scenery_8.JPG */; };
+		492C174027058F4A009816F0 /* scenery_6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172727058F49009816F0 /* scenery_6.JPG */; };
+		492C174127058F4A009816F0 /* scenery_7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172827058F49009816F0 /* scenery_7.JPG */; };
+		492C174227058F4A009816F0 /* scenery_5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172927058F49009816F0 /* scenery_5.JPG */; };
+		492C174327058F4A009816F0 /* scenery_4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172A27058F49009816F0 /* scenery_4.JPG */; };
+		492C174427058F4A009816F0 /* scenery_1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172B27058F49009816F0 /* scenery_1.JPG */; };
+		492C174527058F4A009816F0 /* scenery_3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172C27058F49009816F0 /* scenery_3.JPG */; };
+		492C174627058F4A009816F0 /* scenery_2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172D27058F49009816F0 /* scenery_2.JPG */; };
+		492C174727058F4A009816F0 /* scenery_17.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172E27058F49009816F0 /* scenery_17.JPG */; };
+		492C174827058F4A009816F0 /* scenery_16.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C172F27058F49009816F0 /* scenery_16.JPG */; };
+		492C174927058F4A009816F0 /* scenery_14.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173027058F49009816F0 /* scenery_14.JPG */; };
+		492C174A27058F4A009816F0 /* scenery_15.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173127058F49009816F0 /* scenery_15.JPG */; };
+		492C174B27058F4A009816F0 /* scenery_11.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173227058F49009816F0 /* scenery_11.JPG */; };
+		492C174C27058F4A009816F0 /* scenery_10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173327058F49009816F0 /* scenery_10.JPG */; };
+		492C174D27058F4A009816F0 /* scenery_12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173427058F49009816F0 /* scenery_12.JPG */; };
+		492C174E27058F4A009816F0 /* scenery_13.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173527058F49009816F0 /* scenery_13.JPG */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		6A6D3C0A91BA8E48662CBDA0 /* Pods_LGSwiftKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0BDB926440C2C5F38F8562 /* Pods_LGSwiftKit_Tests.framework */; };
 		CED34A30AB003608127B7556 /* Pods_LGSwiftKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6299C877792588D26B03B /* Pods_LGSwiftKit_Example.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = LGSwiftKit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2DB5880EC5BB289996539CE8 /* Pods-LGSwiftKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGSwiftKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-LGSwiftKit_Example/Pods-LGSwiftKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		496D720226FD5FA500D4CD26 /* LGCarouselDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGCarouselDemoViewController.swift; sourceTree = "<group>"; };
+		492C171C27058F49009816F0 /* LGCarouselImageItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCarouselImageItemView.swift; sourceTree = "<group>"; };
+		492C171D27058F49009816F0 /* LGCarouselDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGCarouselDemoViewController.swift; sourceTree = "<group>"; };
+		492C171F27058F49009816F0 /* scenery_22.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_22.JPG; sourceTree = "<group>"; };
+		492C172027058F49009816F0 /* scenery_23.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_23.JPG; sourceTree = "<group>"; };
+		492C172127058F49009816F0 /* scenery_21.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_21.JPG; sourceTree = "<group>"; };
+		492C172227058F49009816F0 /* scenery_20.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_20.JPG; sourceTree = "<group>"; };
+		492C172327058F49009816F0 /* scenery_18.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_18.JPG; sourceTree = "<group>"; };
+		492C172427058F49009816F0 /* scenery_19.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_19.JPG; sourceTree = "<group>"; };
+		492C172527058F49009816F0 /* scenery_9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_9.JPG; sourceTree = "<group>"; };
+		492C172627058F49009816F0 /* scenery_8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_8.JPG; sourceTree = "<group>"; };
+		492C172727058F49009816F0 /* scenery_6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_6.JPG; sourceTree = "<group>"; };
+		492C172827058F49009816F0 /* scenery_7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_7.JPG; sourceTree = "<group>"; };
+		492C172927058F49009816F0 /* scenery_5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_5.JPG; sourceTree = "<group>"; };
+		492C172A27058F49009816F0 /* scenery_4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_4.JPG; sourceTree = "<group>"; };
+		492C172B27058F49009816F0 /* scenery_1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_1.JPG; sourceTree = "<group>"; };
+		492C172C27058F49009816F0 /* scenery_3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_3.JPG; sourceTree = "<group>"; };
+		492C172D27058F49009816F0 /* scenery_2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_2.JPG; sourceTree = "<group>"; };
+		492C172E27058F49009816F0 /* scenery_17.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_17.JPG; sourceTree = "<group>"; };
+		492C172F27058F49009816F0 /* scenery_16.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_16.JPG; sourceTree = "<group>"; };
+		492C173027058F49009816F0 /* scenery_14.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_14.JPG; sourceTree = "<group>"; };
+		492C173127058F49009816F0 /* scenery_15.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_15.JPG; sourceTree = "<group>"; };
+		492C173227058F49009816F0 /* scenery_11.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_11.JPG; sourceTree = "<group>"; };
+		492C173327058F49009816F0 /* scenery_10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_10.JPG; sourceTree = "<group>"; };
+		492C173427058F49009816F0 /* scenery_12.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_12.JPG; sourceTree = "<group>"; };
+		492C173527058F49009816F0 /* scenery_13.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_13.JPG; sourceTree = "<group>"; };
 		49B4DF9B3CF04DA5465C41BD /* LGSwiftKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LGSwiftKit.podspec; path = ../LGSwiftKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4A16D1B037935BE3CA296910 /* Pods-LGSwiftKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGSwiftKit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-LGSwiftKit_Tests/Pods-LGSwiftKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* LGSwiftKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGSwiftKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,7 +76,6 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* LGSwiftKit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGSwiftKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7A0BDB926440C2C5F38F8562 /* Pods_LGSwiftKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LGSwiftKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,17 +95,57 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		607FACE21AFB9204008FA782 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A6D3C0A91BA8E48662CBDA0 /* Pods_LGSwiftKit_Tests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		492C171A27058F49009816F0 /* Demos */ = {
+			isa = PBXGroup;
+			children = (
+				492C171B27058F49009816F0 /* Carousel */,
+				492C171E27058F49009816F0 /* Resource */,
+			);
+			path = Demos;
+			sourceTree = "<group>";
+		};
+		492C171B27058F49009816F0 /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				492C171C27058F49009816F0 /* LGCarouselImageItemView.swift */,
+				492C171D27058F49009816F0 /* LGCarouselDemoViewController.swift */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
+		492C171E27058F49009816F0 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				492C171F27058F49009816F0 /* scenery_22.JPG */,
+				492C172027058F49009816F0 /* scenery_23.JPG */,
+				492C172127058F49009816F0 /* scenery_21.JPG */,
+				492C172227058F49009816F0 /* scenery_20.JPG */,
+				492C172327058F49009816F0 /* scenery_18.JPG */,
+				492C172427058F49009816F0 /* scenery_19.JPG */,
+				492C172527058F49009816F0 /* scenery_9.JPG */,
+				492C172627058F49009816F0 /* scenery_8.JPG */,
+				492C172727058F49009816F0 /* scenery_6.JPG */,
+				492C172827058F49009816F0 /* scenery_7.JPG */,
+				492C172927058F49009816F0 /* scenery_5.JPG */,
+				492C172A27058F49009816F0 /* scenery_4.JPG */,
+				492C172B27058F49009816F0 /* scenery_1.JPG */,
+				492C172C27058F49009816F0 /* scenery_3.JPG */,
+				492C172D27058F49009816F0 /* scenery_2.JPG */,
+				492C172E27058F49009816F0 /* scenery_17.JPG */,
+				492C172F27058F49009816F0 /* scenery_16.JPG */,
+				492C173027058F49009816F0 /* scenery_14.JPG */,
+				492C173127058F49009816F0 /* scenery_15.JPG */,
+				492C173227058F49009816F0 /* scenery_11.JPG */,
+				492C173327058F49009816F0 /* scenery_10.JPG */,
+				492C173427058F49009816F0 /* scenery_12.JPG */,
+				492C173527058F49009816F0 /* scenery_13.JPG */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* LGSwiftKit_Example.app */,
-				607FACE51AFB9204008FA782 /* LGSwiftKit_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +169,9 @@
 		607FACD21AFB9204008FA782 /* Example for LGSwiftKit */ = {
 			isa = PBXGroup;
 			children = (
+				492C171A27058F49009816F0 /* Demos */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				496D720226FD5FA500D4CD26 /* LGCarouselDemoViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -173,6 +247,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
+				F7A9F43D6A3FBE6055DCB15E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,25 +257,6 @@
 			productName = LGSwiftKit;
 			productReference = 607FACD01AFB9204008FA782 /* LGSwiftKit_Example.app */;
 			productType = "com.apple.product-type.application";
-		};
-		607FACE41AFB9204008FA782 /* LGSwiftKit_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LGSwiftKit_Tests" */;
-			buildPhases = (
-				6597805E3B766DC6935E7A2A /* [CP] Check Pods Manifest.lock */,
-				607FACE11AFB9204008FA782 /* Sources */,
-				607FACE21AFB9204008FA782 /* Frameworks */,
-				607FACE31AFB9204008FA782 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
-			);
-			name = LGSwiftKit_Tests;
-			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* LGSwiftKit_Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -214,14 +270,9 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = R45F67QY7P;
+						DevelopmentTeam = S2T9J933U3;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
-					};
-					607FACE41AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
-						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
@@ -240,7 +291,6 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* LGSwiftKit_Example */,
-				607FACE41AFB9204008FA782 /* LGSwiftKit_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,44 +300,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492C173F27058F4A009816F0 /* scenery_8.JPG in Resources */,
+				492C174227058F4A009816F0 /* scenery_5.JPG in Resources */,
+				492C174127058F4A009816F0 /* scenery_7.JPG in Resources */,
+				492C173D27058F4A009816F0 /* scenery_19.JPG in Resources */,
+				492C173A27058F49009816F0 /* scenery_21.JPG in Resources */,
+				492C174427058F4A009816F0 /* scenery_1.JPG in Resources */,
+				492C174C27058F4A009816F0 /* scenery_10.JPG in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				492C173B27058F4A009816F0 /* scenery_20.JPG in Resources */,
+				492C174E27058F4A009816F0 /* scenery_13.JPG in Resources */,
+				492C174327058F4A009816F0 /* scenery_4.JPG in Resources */,
+				492C173927058F49009816F0 /* scenery_23.JPG in Resources */,
+				492C173827058F49009816F0 /* scenery_22.JPG in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				492C174527058F4A009816F0 /* scenery_3.JPG in Resources */,
+				492C173E27058F4A009816F0 /* scenery_9.JPG in Resources */,
+				492C173C27058F4A009816F0 /* scenery_18.JPG in Resources */,
+				492C174D27058F4A009816F0 /* scenery_12.JPG in Resources */,
+				492C174A27058F4A009816F0 /* scenery_15.JPG in Resources */,
+				492C174727058F4A009816F0 /* scenery_17.JPG in Resources */,
+				492C174827058F4A009816F0 /* scenery_16.JPG in Resources */,
+				492C174027058F4A009816F0 /* scenery_6.JPG in Resources */,
+				492C174B27058F4A009816F0 /* scenery_11.JPG in Resources */,
+				492C174627058F4A009816F0 /* scenery_2.JPG in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE31AFB9204008FA782 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				492C174927058F4A009816F0 /* scenery_14.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6597805E3B766DC6935E7A2A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LGSwiftKit_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6C2773E4D8CB58788FA61BBD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +354,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F7A9F43D6A3FBE6055DCB15E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LGSwiftKit_Example/Pods-LGSwiftKit_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LGSwiftKit/LGSwiftKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSwiftKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LGSwiftKit_Example/Pods-LGSwiftKit_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -317,29 +379,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496D720326FD5FA500D4CD26 /* LGCarouselDemoViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE11AFB9204008FA782 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				492C173727058F49009816F0 /* LGCarouselDemoViewController.swift in Sources */,
+				492C173627058F49009816F0 /* LGCarouselImageItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* LGSwiftKit_Example */;
-			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
@@ -467,11 +514,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R45F67QY7P;
+				DEVELOPMENT_TEAM = S2T9J933U3;
 				INFOPLIST_FILE = LGSwiftKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.LGSwiftKit-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LGSwiftKitDemo.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -486,55 +533,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R45F67QY7P;
+				DEVELOPMENT_TEAM = S2T9J933U3;
 				INFOPLIST_FILE = LGSwiftKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.LGSwiftKit-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LGSwiftKitDemo.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		607FACF31AFB9204008FA782 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A16D1B037935BE3CA296910 /* Pods-LGSwiftKit_Tests.debug.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LGSwiftKit_Example.app/LGSwiftKit_Example";
-			};
-			name = Debug;
-		};
-		607FACF41AFB9204008FA782 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7B148A769450590F76DDB8B /* Pods-LGSwiftKit_Tests.release.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LGSwiftKit_Example.app/LGSwiftKit_Example";
 			};
 			name = Release;
 		};
@@ -555,15 +562,6 @@
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,
 				607FACF11AFB9204008FA782 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LGSwiftKit_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				607FACF31AFB9204008FA782 /* Debug */,
-				607FACF41AFB9204008FA782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
