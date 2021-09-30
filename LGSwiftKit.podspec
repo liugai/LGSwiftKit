@@ -9,4 +9,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/liugai/LGSwiftKit.git", :tag => s.version }
   s.requires_arc = true
   s.source_files  = "LGSwiftKit/**/*"
+  s.platform = :ios, "9.0"
 end
