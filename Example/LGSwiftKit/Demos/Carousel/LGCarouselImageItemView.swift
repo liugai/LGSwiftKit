@@ -17,7 +17,7 @@ class LGCarouselImageItemView: LGCarouselItemView {
         return imageView
     } ()
     
-    required init(frame: CGRect) {
+    required override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(self.imageView)
     }

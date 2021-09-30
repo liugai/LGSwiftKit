@@ -3,11 +3,5 @@ use_frameworks!
 platform :ios, '9.0'
 
 target 'LGSwiftKit_Example' do
-  pod 'LGSwiftKit', :path => '../'
-
-  target 'LGSwiftKit_Tests' do
-    inherit! :search_paths
-
-    
-  end
+  pod 'LGSwiftKit'#, :path => '../'
 end
