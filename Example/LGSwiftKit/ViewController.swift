@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }()
     
     private var dataSource: Array = {
-        return ["轮播demo"]
+        return ["轮播demo","Hud(loading, toast)"]
     }()
     
     override func viewDidLoad() {
@@ -61,6 +61,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switch indexPath.row {
         case 0:
             vc = LGCarouselDemoViewController()
+        case 1:
+            vc = LGHudDemoViewController()
         default: break
         }
         

@@ -78,13 +78,6 @@ extension UIColor{
         case Color_01 = "#010101"
         case Color_A1 = "#a1a1a1"
         case Color_30 = "#303030"
-        case Color_Line = "#f2f2f2"
-        case Color_Main_Blue = "#2B44FF"
-        case Color_Main_Background = "#EDEEF3"
-        case Color_Main_Gray = "#9497aa"
-        case Color_Main_Red = "#FF3F2B"
-        case Color_Main_Orange = "#FF942B"
-        case Color_Main_Green = "#02C559"
     }
     
     public static func colorFromOxEnum(_ colorType: LGColorType) -> UIColor{
@@ -135,34 +128,6 @@ extension UIColor{
         return UIColor.colorFromOxEnum(.Color_30)
     }
     
-    public class var color_line: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Line)
-    }
-    
-    public class var color_main_blue: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Blue)
-    }
-    
-    public class var color_main_background: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Background)
-    }
-    
-    public class var color_main_gray: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Gray)
-    }
-    
-    public class var color_main_red: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Red)
-    }
-    
-    public class var color_main_orange: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Orange)
-    }
-    
-    public class var color_main_green: UIColor {
-        return UIColor.colorFromOxEnum(.Color_Main_Green)
-    }
-
 }
 
 // MARK: - RGB颜色

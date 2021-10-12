@@ -32,6 +32,7 @@
 		492C174C27058F4A009816F0 /* scenery_10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173327058F49009816F0 /* scenery_10.JPG */; };
 		492C174D27058F4A009816F0 /* scenery_12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173427058F49009816F0 /* scenery_12.JPG */; };
 		492C174E27058F4A009816F0 /* scenery_13.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 492C173527058F49009816F0 /* scenery_13.JPG */; };
+		49F06A83271570210092A73D /* LGHudDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F06A82271570210092A73D /* LGHudDemoViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -68,6 +69,7 @@
 		492C173427058F49009816F0 /* scenery_12.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_12.JPG; sourceTree = "<group>"; };
 		492C173527058F49009816F0 /* scenery_13.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = scenery_13.JPG; sourceTree = "<group>"; };
 		49B4DF9B3CF04DA5465C41BD /* LGSwiftKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LGSwiftKit.podspec; path = ../LGSwiftKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		49F06A82271570210092A73D /* LGHudDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGHudDemoViewController.swift; sourceTree = "<group>"; };
 		4A16D1B037935BE3CA296910 /* Pods-LGSwiftKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGSwiftKit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-LGSwiftKit_Tests/Pods-LGSwiftKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* LGSwiftKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGSwiftKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		492C171A27058F49009816F0 /* Demos */ = {
 			isa = PBXGroup;
 			children = (
+				49F06A812715700B0092A73D /* Hud */,
 				492C171B27058F49009816F0 /* Carousel */,
 				492C171E27058F49009816F0 /* Resource */,
 			);
@@ -144,6 +147,14 @@
 				492C173527058F49009816F0 /* scenery_13.JPG */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		49F06A812715700B0092A73D /* Hud */ = {
+			isa = PBXGroup;
+			children = (
+				49F06A82271570210092A73D /* LGHudDemoViewController.swift */,
+			);
+			path = Hud;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -270,9 +281,8 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = S2T9J933U3;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -381,6 +391,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				49F06A83271570210092A73D /* LGHudDemoViewController.swift in Sources */,
 				492C173727058F49009816F0 /* LGCarouselDemoViewController.swift in Sources */,
 				492C173627058F49009816F0 /* LGCarouselImageItemView.swift in Sources */,
 			);
@@ -513,8 +524,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S2T9J933U3;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LGSwiftKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -532,8 +543,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S2T9J933U3;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LGSwiftKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;

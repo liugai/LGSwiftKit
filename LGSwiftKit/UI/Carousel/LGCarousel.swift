@@ -54,32 +54,32 @@ open class LGCarousel: UIView {
     
     // MARK: 懒加载
     /// 缓存池视图
-    private var arrayCacheViews: Array<LGCarouselItemView> = {
+    private lazy var arrayCacheViews: Array<LGCarouselItemView> = {
         return Array()
     }()
 
     /// 能够重用的视图，该数组只增不减，除非整个容器视图销毁
-    private var arrayReuseViews: Array<LGCarouselItemView> = {
+    private lazy var arrayReuseViews: Array<LGCarouselItemView> = {
         return Array()
     }()
 
     /// 可视范围的indexPaths
-    private var visibleItemIndexs: Array<LGCarouselIndexPath> = {
+    private lazy var visibleItemIndexs: Array<LGCarouselIndexPath> = {
         return Array()
     }()
 
     /// 可视范围的itemViews
-    private var visibleItemViews: Array<LGCarouselItemView> = {
+    private lazy var visibleItemViews: Array<LGCarouselItemView> = {
         return Array()
     }()
 
     /// scroll容器
-    private var containerView: UIView = {
+    private lazy var containerView: UIView = {
         return UIView()
     }()
 
     /// scrollView
-    private var scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
