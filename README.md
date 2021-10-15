@@ -8,6 +8,10 @@ pod 'LGSwiftKit'
 import LGSwiftKit
 
 # 内容说明
+图片示例
+![Image text](https://github.com/liugai/LGSwiftKit/blob/master/res/carousel1.PNG)
+
+
 LGAttributeString.swift ，计算字符串宽高
 
 LGBool.swift  是否是全屏手机判断
