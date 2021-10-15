@@ -8,22 +8,24 @@
 
 import UIKit
 
+public enum LGDateOfStringMode:String{
+    case yyyy = "yyyy"
+    case yyyy_MM = "yyyy-MM"
+    case MM = "MM"
+    case dd = "dd"
+    case MM_dd = "MM-dd"
+    case HH_mm = "HH:mm"
+    case HH_mm_ss = "HH:mm:ss"
+    case MM_dd_HH_mm_ss = "MM_dd HH:mm:ss"
+    case yyyyMMdd = "yyyyMMdd"
+    case yyyy_MM_dd = "yyyy-MM-dd"
+    case yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm"
+    case yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss"
+}
+
 extension Date{
     
-    public enum LGDateOfStringMode:String{
-        case yyyy = "yyyy"
-        case yyyy_MM = "yyyy-MM"
-        case MM = "MM"
-        case dd = "dd"
-        case MM_dd = "MM-dd"
-        case HH_mm = "HH:mm"
-        case HH_mm_ss = "HH:mm:ss"
-        case MM_dd_HH_mm_ss = "MM_dd HH:mm:ss"
-        case yyyyMMdd = "yyyyMMdd"
-        case yyyy_MM_dd = "yyyy-MM-dd"
-        case yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm"
-        case yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss"
-    }
+    
     
     public func stringWithMode(_ mode:LGDateOfStringMode = .yyyy_MM_dd) -> String {
         let dateformat = DateFormatter()

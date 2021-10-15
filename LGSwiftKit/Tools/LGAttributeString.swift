@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 计算size
 extension NSAttributedString{
     public func sizeFromAttrStr(width:CGFloat) -> CGSize{
-        return self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesFontLeading, context: nil).size
+        return self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, context: nil).size
     }
 }
 

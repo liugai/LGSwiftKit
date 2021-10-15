@@ -8,8 +8,25 @@
 
 import UIKit
 
+
+
 // MARK: - 16进制颜色
 extension UIColor{
+    
+    private enum LGColorType:String {
+        case Color_2C = "#2c2c2c"
+        case Color_99 = "#999999"
+        case Color_66 = "#666666"
+        case Color_EE = "#eeeeee"
+        case Color_E3 = "#e3e3e3"
+        case Color_DC = "#dcdcdc"
+        case Color_F4 = "#f4f4f4"
+        case Color_C5 = "#c5c5c5"
+        case Color_01 = "#010101"
+        case Color_A1 = "#a1a1a1"
+        case Color_30 = "#303030"
+    }
+    
     // MARK: 颜色转换 IOS中十六进制的颜色转换为UIColor
     public static func colorOfOxString(oxString:String) -> UIColor{
         var colorString = oxString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
@@ -66,66 +83,54 @@ extension UIColor{
     }
     
     
-    public enum LGColorType:String {
-        case Color_2C = "#2c2c2c"
-        case Color_99 = "#999999"
-        case Color_66 = "#666666"
-        case Color_EE = "#eeeeee"
-        case Color_E3 = "#e3e3e3"
-        case Color_DC = "#dcdcdc"
-        case Color_F4 = "#f4f4f4"
-        case Color_C5 = "#c5c5c5"
-        case Color_01 = "#010101"
-        case Color_A1 = "#a1a1a1"
-        case Color_30 = "#303030"
-    }
     
-    public static func colorFromOxEnum(_ colorType: LGColorType) -> UIColor{
+    
+    private static func colorFromOxEnum(_ colorType: LGColorType) -> UIColor{
         return UIColor.colorOfOxString(oxString: colorType.rawValue)
     }
     
     public class var color_2c: UIColor {
-        return UIColor.colorFromOxEnum(.Color_2C)
+        return self.colorFromOxEnum(.Color_2C)
     }
     
     public class var color_99: UIColor {
-        return UIColor.colorFromOxEnum(.Color_99)
+        return self.colorFromOxEnum(.Color_99)
     }
     
     public class var color_66: UIColor {
-        return UIColor.colorFromOxEnum(.Color_66)
+        return self.colorFromOxEnum(.Color_66)
     }
     
     public class var color_ee: UIColor {
-        return UIColor.colorFromOxEnum(.Color_EE)
+        return self.colorFromOxEnum(.Color_EE)
     }
     
     public class var color_e3: UIColor {
-        return UIColor.colorFromOxEnum(.Color_E3)
+        return self.colorFromOxEnum(.Color_E3)
     }
     
     public class var color_dc: UIColor {
-        return UIColor.colorFromOxEnum(.Color_DC)
+        return self.colorFromOxEnum(.Color_DC)
     }
     
     public class var color_f4: UIColor {
-        return UIColor.colorFromOxEnum(.Color_F4)
+        return self.colorFromOxEnum(.Color_F4)
     }
     
     public class var color_c5: UIColor {
-        return UIColor.colorFromOxEnum(.Color_C5)
+        return self.colorFromOxEnum(.Color_C5)
     }
     
     public class var color_01: UIColor {
-        return UIColor.colorFromOxEnum(.Color_01)
+        return self.colorFromOxEnum(.Color_01)
     }
     
     public class var color_a1: UIColor {
-        return UIColor.colorFromOxEnum(.Color_A1)
+        return self.colorFromOxEnum(.Color_A1)
     }
     
     public class var color_30: UIColor {
-        return UIColor.colorFromOxEnum(.Color_30)
+        return self.colorFromOxEnum(.Color_30)
     }
     
 }
@@ -133,7 +138,7 @@ extension UIColor{
 // MARK: - RGB颜色
 
 extension UIColor{
-    static func lg_rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 1) -> UIColor{
+    public static func lg_rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 1) -> UIColor{
         guard a>=0 && a<=1 && r>=0 && r<=255 && g>=0 && g<=255 && b>=0 && b<=255 else {
             return UIColor.clear
         }

@@ -13,4 +13,5 @@ extension Bool{
     public static var is_full_iPhone: Bool{
         return CGFloat.statusbar_height>20
     }
+    
 }

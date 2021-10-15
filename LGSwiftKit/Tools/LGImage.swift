@@ -9,27 +9,20 @@
 import UIKit
 import CoreGraphics.CGContext
 
+// MARK:颜色生成图片：指定某一边有边框的
+public enum LGImageBorderPosition{
+    case None,Left,Top,Right,Bottle,All
+}
+public enum LGImageShape {
+    case Rectangle //矩形
+    case RectCorner(radius:CGFloat) //带圆角的矩形(带圆角，椭圆)
+    case Circle
+}
+
 extension UIImage{
-
-    public static func image_placeholder_head(gender:Int) -> UIImage?{
-        if gender == 1{
-            return UIImage(named: "user_head_woman")
-        }
-        return UIImage(named: "user_head_man")
-    }
-
+   
     
-    // MARK:颜色生成图片：指定某一边有边框的
-    public enum LGImageBorderPosition{
-        case None,Left,Top,Right,Bottle,All
-    }
-    public enum LGImageShape {
-        case Rectangle //矩形
-        case RectCorner(radius:CGFloat) //带圆角的矩形(带圆角，椭圆)
-        case Circle
-    }
-    
-    public static func imageFrom(color: UIColor, size: CGSize,shape:LGImageShape = .Rectangle, borderPos: LGImageBorderPosition = .None,borderWidth: CGFloat = 0, borderColor:UIColor = UIColor.clear, word:String = "", wordColor:UIColor = UIColor.clear, wordFontSize:CGFloat = 18) -> UIImage{
+    public static func imageFrom(color: UIColor, size: CGSize,shape:LGImageShape, borderPos: LGImageBorderPosition, borderWidth: CGFloat, borderColor:UIColor, word:String, wordColor: UIColor, wordFont: UIFont) -> UIImage{
         var rectFill = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
         var rectBorder:CGRect? = rectFill
         UIGraphicsBeginImageContext(rectBorder!.size)
@@ -83,7 +76,7 @@ extension UIImage{
             let textStyle = NSMutableParagraphStyle()
             textStyle.lineBreakMode = .byWordWrapping
             textStyle.alignment = .center
-            let attrDict:[NSAttributedString.Key:Any] = [NSAttributedString.Key.paragraphStyle:textStyle,NSAttributedString.Key.foregroundColor:wordColor,NSAttributedString.Key.kern:0,NSAttributedString.Key.font:UIFont.systemFont(ofSize: wordFontSize)]
+            let attrDict:[NSAttributedString.Key:Any] = [NSAttributedString.Key.paragraphStyle:textStyle,NSAttributedString.Key.foregroundColor:wordColor,NSAttributedString.Key.kern:0,NSAttributedString.Key.font:wordFont]
             let wordSize = (word as NSString).size(withAttributes: attrDict)
             let marginTop = (rectFill.size.height-wordSize.height)/2
             let rectWord = CGRect(x: rectFill.origin.x, y: rectFill.origin.y+marginTop, width: rectFill.size.width, height: wordSize.height)
@@ -100,23 +93,23 @@ extension UIImage{
     }
     
     public static func imageFrom(color:UIColor) -> UIImage{
-        return self.imageFrom(color: color, size: CGSize(width: 2, height: 2), shape: .Rectangle, borderPos: .None, borderWidth: 0)
+        return self.imageFrom(color: color, size: CGSize(width: 1, height: 1))
     }
     
     public static func imageFrom(color:UIColor, size:CGSize) -> UIImage{
-        return self.imageFrom(color: color, size: size, shape: .Rectangle, borderPos: .None, borderWidth: 0)
+        return self.imageFrom(color: color, size: size, shape: .Rectangle)
     }
     
     public static func imageFrom(color:UIColor, size:CGSize, shape:LGImageShape) -> UIImage{
-        return self.imageFrom(color: color, size: size, shape: shape, borderPos: .None, borderWidth: 0)
+        return self.imageFrom(color: color, size: size, shape: shape, borderPos: .None, borderWidth: 0, borderColor: .clear)
     }
     
     public static func imageFrom(color:UIColor, size:CGSize, shape:LGImageShape, borderPos:LGImageBorderPosition, borderWidth:CGFloat, borderColor:UIColor) -> UIImage{
-        return self.imageFrom(color: color, size: size, shape: shape, borderPos: borderPos, borderWidth: borderWidth, borderColor: borderColor)
+        return self.imageFrom(color: color, size: size, shape: shape, borderPos: borderPos, borderWidth: borderWidth, borderColor: borderColor, word: "", wordColor: .clear, wordFont: UIFont())
     }
     
-    public static func imageFrom(color: UIColor, size: CGSize,shape:LGImageShape, word:String, wordColor:UIColor, wordFontSize:CGFloat = 18) -> UIImage{
-        return self.imageFrom(color: color, size: size, shape: shape,  word: word, wordColor: wordColor, wordFontSize: wordFontSize)
+    public static func imageFrom(color: UIColor, size: CGSize,shape:LGImageShape, word:String, wordColor:UIColor, wordFont:UIFont) -> UIImage{
+        return self.imageFrom(color: color, size: size, shape: shape, borderPos: .None, borderWidth: 0, borderColor: .clear, word: word, wordColor: wordColor, wordFont: wordFont)
     }
 
     // MARK: - 绘制渐变色
@@ -154,24 +147,5 @@ extension UIImage{
         UIGraphicsEndImageContext()
         return image ?? UIImage()
     }
-    
-    
-
-//    static UIImage *imgAwardCutScoreBackNormal;
-//    static UIImage *imgAwardCutScoreBackSelected;
-//    + (UIImage *)imgAwardCutScoreBackIsNormal:(BOOL)isNormal{
-//        if (isNormal) {
-//            if (!imgAwardCutScoreBackNormal) {
-//                imgAwardCutScoreBackNormal = [UIImage imageWithColor:[UIColor colorOxString:@"#02CF7B"]];
-//            }
-//            return imgAwardCutScoreBackNormal;
-//        }
-//
-//        if (!imgAwardCutScoreBackSelected) {
-//            imgAwardCutScoreBackSelected = [UIImage imageWithColor:LG_COLOR_MAIN_RED];
-//        }
-//        return imgAwardCutScoreBackSelected;
-//
-//    }
     
 }

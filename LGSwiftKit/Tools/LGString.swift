@@ -81,14 +81,15 @@ extension String{
 
 // MARK: - 计算size
 extension String{
-    func size(width: CGFloat = 0, fontSize: CGFloat = 16,font:UIFont?) -> CGSize {
-        var fontTemp = UIFont.systemFont(ofSize: fontSize)
-        if let font = font{
-            fontTemp = font
-        }
+    public func size(width: CGFloat, fontSize: CGFloat) -> CGSize {
+        return self.size(width: width, font: UIFont.systemFont(ofSize: fontSize))
+    }
+    
+    public func size(width: CGFloat, font:UIFont?) -> CGSize {
+        let fontTemp = font ?? UIFont.systemFont(ofSize: 16)
         let attrDict = [NSAttributedString.Key.font:fontTemp]
         let str:NSString = self as NSString
-        return str.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesFontLeading, attributes: attrDict, context: nil).size
+        return str.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: attrDict, context: nil).size
     }
 }
 
@@ -96,86 +97,28 @@ extension String{
 extension String{
     
     // MARK 系统版本号
-    static var sys_version:String {
+    public static var sys_version:String {
         return UIDevice.current.systemVersion
     }
     
     // MARK: app版本号
-        static func appVersion() -> String{
-            if let dict = Bundle.main.infoDictionary {
-    //            if let version =  dict["CFBundleShortVersionString"]{
-    //                return version as! String
-    //            }
-                
-                for (key,value) in dict{
-                    print("\(key):\(value)")
-                }
+    public static func appVersion() -> String{
+        if let dict = Bundle.main.infoDictionary {
+            if let version =  dict["CFBundleShortVersionString"]{
+                return version as! String
             }
-            return "1.0"
         }
-        
-        // MARK: app名字
-        static func appName() -> String{
-            if let dict = Bundle.main.infoDictionary {
-                if let nameTemp =  dict["CFBundleName"]{
-                    return nameTemp as! String
-                }
+        return ""
+    }
+    
+    // MARK: app名字
+    public static func appName() -> String{
+        if let dict = Bundle.main.infoDictionary {
+            if let nameTemp =  dict["CFBundleName"]{
+                return nameTemp as! String
             }
-            return "壹积分"
         }
-
-        // MARK: 获取当前wifi服务集标志(SSID)
-        static func currentWifiSSID() -> String?{
-            var ssid:String?
-            guard let ifs = CNCopySupportedInterfaces() else{
-                return nil
-            }
-            print(ifs)
-            let count = CFArrayGetCount(ifs)
-            guard count>0 else {
-                return nil
-            }
-            
-            let p = UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: 0)
-            CFArrayGetValues(ifs, CFRange(location: 0, length: count), p)
-            let buffer = UnsafeMutableBufferPointer<UnsafeRawPointer?>.init(start: p, count: count)
-            buffer.forEach {
-                if let p = $0 {
-    //                print(Unmanaged<NSString>.fromOpaque(p).takeUnretainedValue())
-                }
-            }
-            
-            return ""
-    //        NSString *ssid = nil;
-    //        NSArray *ifs = (__bridge  id)CNCopySupportedInterfaces();
-    //        for (NSString *ifname in ifs) {
-    //            NSDictionary *info = (__bridge id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
-    //            if (info[@"SSIDD"])
-    //            {
-    //                ssid = info[@"SSID"];
-    //            }
-    //        }
-    //        return ssid;
-        }
-    //    + (NSString *)currentWifiSSID{
-    //    //
-    //    //    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
-    //    //    CGFloat version = [phoneVersion floatValue];
-    //    //    // 如果是iOS13 未开启地理位置权限 需要提示一下
-    //    //    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined && version >= 13) {
-    //    //      self.locationManager = [[CLLocationManager alloc] init];
-    //    //      [self.locationManager requestWhenInUseAuthorization];
-    //    //    }
-    //
-    //    NSString *ssid = nil;
-    //    NSArray *ifs = (__bridge  id)CNCopySupportedInterfaces();
-    //    for (NSString *ifname in ifs) {
-    //    NSDictionary *info = (__bridge id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
-    //    if (info[@"SSIDD"])
-    //    {
-    //    ssid = info[@"SSID"];
-    //    }
-    //    }
-    //    return ssid;
-    //    }
+        return ""
+    }
+    
 }

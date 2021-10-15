@@ -8,13 +8,13 @@
 import UIKit
 
 private let hudTag = 1000001
-private let horMargin:CGFloat = 20
-private let verMargin:CGFloat = 20
-private let innerGap:CGFloat = 15
-private var hudContainerView: UIView?
+private let horMargin: CGFloat = 20
+private let verMargin: CGFloat = 20
+private let innerGap: CGFloat = 15
+private let hudMinWidth: CGFloat = 120
+private let hudMinHeight: CGFloat = 120
 
-
-public enum LGHudBackStyle {
+public enum LGHudColorStyle {
     case light, dark
 }
 
@@ -24,73 +24,43 @@ public enum LGHudType {
     case textloading
 }
 
-public class LGProgressHud {
+public class LGProgressHud: NSObject {
     
     public static let shared = LGProgressHud()
     
-    public class func showLoading() {
-        self.showLoading(container: nil)
-    }
+    public var defaultStyle: LGHudColorStyle = .dark
     
-    public class func showLoading(container: UIView?) {
+    public class func showLoading(container: UIView? = nil, text: String? = nil) {
         self.show(container: container, style: .dark, hudType: .loading, duration: 0, text: nil, compeletion: nil)
     }
-    
-    public class func showLoading(text: String) {
-        self.showLoading(container: nil, text: text)
-    }
-    
-    public class func showLoading(container: UIView?, text: String) {
-        self.show(container: container, style: .dark, hudType: .textloading, duration: 0, text: text, compeletion: nil)
-    }
-    
-    public class func showText(text: String) {
-        self.show(container: nil, style: .dark, hudType: .text, duration: 0, text: text, compeletion: nil)
-        self.delayDismiss(container: nil)
-    }
-    
-    public class func showText(text: String, container: UIView?) {
+
+    public class func showText(text: String, container: UIView? = nil) {
         self.show(container: container, style: .dark, hudType: .text, duration: 0, text: text, compeletion: nil)
-        self.delayDismiss(container: container)
     }
     
-    
-    
-    public class func show(container: UIView?, style:LGHudBackStyle = .dark, hudType: LGHudType = .loading, duration:TimeInterval = 3, text:String?, compeletion: (() -> Void)?) {
-        self.dismiss(container: hudContainerView)
-        let containerTemp: UIView = container ?? UIApplication.shared.delegate!.window!!
-        hudContainerView = containerTemp
-        let hud = LGHud(style: style, hudType: hudType, text: text, containerView: containerTemp, compeletion: compeletion)
-        hud.tag = hudTag
-        containerTemp.addSubview(hud)
-        
-    }
-    
-    private class func delayDismiss(container: UIView?) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2.5) {
-            self.dismiss(container: container)
-        }
+    public class func show(container: UIView?, style:LGHudColorStyle, hudType: LGHudType = .loading, duration:TimeInterval = 3, text:String?, compeletion: (() -> Void)? = nil) {
+        LGHud.showHud(style: style, hudType: hudType, text: text, containerView: container ?? self.defaultContainerView(), compeletion: compeletion)
     }
     
     public class func dismiss() {
-        self.dismiss(container: hudContainerView)
-        hudContainerView = nil
+        self.dismiss(container: self.defaultContainerView())
     }
     
-    public class func dismiss(container: UIView?) {
+    @objc public class func dismiss(container: UIView?) {
         guard let containerTemp = container else { return }
         guard let hud = containerTemp.viewWithTag(hudTag) , let realHud = hud as? LGHud else { return }
-        realHud.removeFromSuperview()
-        guard let completion = realHud.completion else { return }
-        completion()
+        realHud.dismiss()
+    }
+    
+    private class func defaultContainerView() -> UIView {
+        return UIApplication.shared.delegate!.window!!
     }
 
 }
 
 fileprivate class LGHud: UIView {
     
-    
-    var style:LGHudBackStyle
+    var style:LGHudColorStyle
     var hudType:LGHudType
     
     var completion:(()->Void)?
@@ -102,19 +72,20 @@ fileprivate class LGHud: UIView {
     var text: String?
     
     override init(frame: CGRect) {
-        style = LGHudBackStyle.dark
+        style = LGHudColorStyle.dark
         hudType = LGHudType.text
         containerView = UIApplication.shared.delegate!.window!!
         super.init(frame: frame)
     }
-    
-    convenience init(style:LGHudBackStyle = LGHudBackStyle.dark, hudType:LGHudType = LGHudType.text, text:String? , containerView: UIView, compeletion: (() -> Void)?){
+        
+    private convenience init(style:LGHudColorStyle = LGHudColorStyle.dark, hudType:LGHudType = LGHudType.text, text:String? , containerView: UIView, duartion: TimeInterval = 2.0, compeletion: (() -> Void)?){
         self.init(frame: CGRect.zero)
         self.style = style
         self.hudType = hudType
         self.text = text
         self.completion = compeletion
         self.containerView = containerView
+        self.duration = max(duartion, 1.0)
         self.initUI()
     }
     
@@ -122,10 +93,7 @@ fileprivate class LGHud: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     public func initUI() {
-        
-        
         // 设置背景色
         switch self.style {
         case .dark:
@@ -138,7 +106,6 @@ fileprivate class LGHud: UIView {
         case .text:
             self.createLabel()
             self.addSubview(self.textLabel!)
-            self.textLabel?.text = self.text
         case .loading:
             self.createIndicatorView()
             self.addSubview(self.indicatorView!)
@@ -146,36 +113,36 @@ fileprivate class LGHud: UIView {
             self.createLabel()
             self.createIndicatorView()
             self.addSubview(self.textLabel!)
-            self.textLabel?.text = self.text
             self.addSubview(self.indicatorView!)
         }
         self.refreshSubLayout()
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 8
     }
     
     
     func refreshSubLayout() {
-        let maxWidth: CGFloat = CGFloat.screen_width/2.0
-        let minWidth: CGFloat = CGFloat.screen_width/3.0
-        var realWidth: CGFloat = maxWidth
+        var realWidth: CGFloat = hudMinWidth
+        var realHeight: CGFloat = hudMinHeight
+        
         if let label = textLabel, let loadingView = indicatorView {
-            var labelSize: CGSize = label.text!.size(width: maxWidth-horMargin*2, fontSize: 0, font: label.font)
+            realWidth = CGFloat.screen_width/2.0
+            var labelSize: CGSize = label.text!.size(width: realWidth-horMargin*2, font: label.font)
             labelSize.height = min(labelSize.height, label.font.lineHeight*2)
-            realWidth = min(max(labelSize.width+horMargin*2.0, loadingView.frame.size.width+horMargin*2.0), maxWidth)
-            realWidth = max(realWidth, minWidth)
-            
-            let sizeHud = CGSize(width: realWidth, height: verMargin+loadingView.frame.size.height+innerGap+labelSize.height+verMargin)
+            realWidth = max(hudMinWidth, labelSize.width+horMargin*2)
+            realHeight = verMargin+loadingView.frame.size.height+innerGap+labelSize.height+verMargin
+            let sizeHud = CGSize(width: realWidth, height: realHeight)
             self.frame = CGRect(x: (self.containerView.frame.size.width-sizeHud.width)/2.0, y: (self.containerView.frame.size.height-sizeHud.height)/2.0, width: sizeHud.width, height: sizeHud.height)
-            loadingView.center = CGPoint(x: sizeHud.width/2.0, y: verMargin+loadingView.frame.size.height/2.0)
+            
+            let top = (sizeHud.height-loadingView.frame.size.height-innerGap-labelSize.height)/2.0;
+            loadingView.center = CGPoint(x: sizeHud.width/2.0, y: top+loadingView.frame.size.height/2.0)
             label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: loadingView.frame.maxY+innerGap, width: labelSize.width, height: labelSize.height)
             loadingView.startAnimating()
             return
         }
         
         if let loadingView = indicatorView {
-            let sizeLoading = loadingView.frame.size
-            realWidth = min(horMargin+sizeLoading.width+horMargin, maxWidth)
-            realWidth = max(realWidth, minWidth)
-            let sizeHud = CGSize(width: realWidth, height: verMargin+sizeLoading.height+verMargin)
+            let sizeHud = CGSize(width: realWidth, height: realHeight)
             self.frame = CGRect(x: (self.containerView.frame.size.width-sizeHud.width)/2.0, y: (self.containerView.frame.size.height-sizeHud.height)/2.0, width: sizeHud.width, height: sizeHud.height)
             loadingView.center = CGPoint(x: sizeHud.width/2.0, y: sizeHud.height/2.0)
             loadingView.startAnimating()
@@ -183,13 +150,14 @@ fileprivate class LGHud: UIView {
         }
         
         if let label = textLabel {
-            var labelSize: CGSize = label.text!.size(width: maxWidth-horMargin*2, fontSize: 0, font: label.font)
+            realWidth = CGFloat.screen_width*2.0/3.0
+            var labelSize: CGSize = label.text!.size(width: realWidth-horMargin*2, font: label.font)
             labelSize.height = min(labelSize.height, label.font.lineHeight*2)
-            realWidth = min(labelSize.width+horMargin*2.0, maxWidth)
-            realWidth = max(realWidth, minWidth)
-            let sizeHud = CGSize(width: realWidth, height: verMargin+labelSize.height+verMargin)
+            realWidth = max(hudMinWidth, labelSize.width+horMargin*2)
+            realHeight = verMargin+labelSize.height+verMargin
+            let sizeHud = CGSize(width: realWidth, height: realHeight)
             self.frame = CGRect(x: (self.containerView.frame.size.width-sizeHud.width)/2.0, y: (self.containerView.frame.size.height-sizeHud.height)/2.0, width: sizeHud.width, height: sizeHud.height)
-            label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: verMargin, width: labelSize.width, height: labelSize.height)
+            label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: (sizeHud.height-labelSize.height)/2.0, width: labelSize.width, height: labelSize.height)
             return
         }
     }
@@ -197,9 +165,14 @@ fileprivate class LGHud: UIView {
     func createLabel() {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
-        label.textColor = UIColor.white
         label.numberOfLines = 0
-        label.text = self.text
+        label.text = self.text ?? "加载中..."
+        switch self.style {
+        case .light:
+            label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        case .dark:
+            label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
+        }
         self.textLabel = label
     }
     
@@ -211,17 +184,43 @@ fileprivate class LGHud: UIView {
             loadinView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorView.Style.whiteLarge)
             // Fallback on earlier versions
         }
-        loadinView?.transform = CGAffineTransform(scaleX: 2, y: 2)
+        loadinView?.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
         switch self.style {
         case .light:
-            loadinView?.color = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+            loadinView?.color = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         case .dark:
-            loadinView?.color = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+            loadinView?.color = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
         }
         self.indicatorView = loadinView
     }
     
+    
 }
 
-
-
+extension LGHud {
+    
+    @objc func dismiss() {
+        if let completion = self.completion {
+            completion()
+        }
+        self.removeFromSuperview()
+    }
+    
+    func beforeHud(container: UIView) -> Self? {
+        guard let hud = container.viewWithTag(hudTag) , let realHud = hud as? LGHud else { return nil}
+        return (realHud as! Self)
+    }
+    
+    class func showHud(style:LGHudColorStyle = LGHudColorStyle.dark, hudType:LGHudType = LGHudType.text, text:String? , containerView: UIView,  duartion: TimeInterval = 2.0, compeletion: (() -> Void)?) -> Void {
+        let hud = LGHud(style: style, hudType: hudType, text: text, containerView: containerView, duartion: duartion, compeletion: compeletion)
+        if let beforeHud = hud.beforeHud(container: containerView) {
+            self.cancelPreviousPerformRequests(withTarget: beforeHud, selector: #selector(beforeHud.dismiss), object: containerView)
+            beforeHud.dismiss()
+        }
+        hud.tag = hudTag
+        containerView.addSubview(hud)
+        if hudType == .text{
+            hud.perform(#selector(hud.dismiss), with: nil, afterDelay: hud.duration);
+        }
+    }
+}

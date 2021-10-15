@@ -9,7 +9,6 @@
 import UIKit
 class LGTool{
     ///排除NSNull对象
-    
     public static func fiterNull(obj:Any?) -> Any?{
         guard let objNew = obj else{
             return nil
@@ -22,15 +21,24 @@ class LGTool{
     }
     
     ///获取当前最上层控制器
-    public static func currentVC() -> UIViewController{
-        guard let window = UIApplication.shared.delegate?.window else {
-            return UIViewController()
+    public static func currentTopController() -> UIViewController{
+        let window = UIApplication.shared.delegate!.window!!
+        var topViewController = window.rootViewController!
+        while true {
+            if let presentedVC = topViewController.presentedViewController {
+                topViewController = presentedVC
+            }
+            else if topViewController is UINavigationController, let topTemp = (topViewController as! UINavigationController).topViewController   {
+                topViewController = topTemp
+            }
+            else if topViewController is UITabBarController ,let topTemp = (topViewController as! UITabBarController).selectedViewController{
+                topViewController = topTemp
+            }
+            else {
+                break
+            }
         }
-        
-        guard let vc = window!.rootViewController else {
-            return UIViewController()
-        }
-        return vc
+        return topViewController
     }
     
     
