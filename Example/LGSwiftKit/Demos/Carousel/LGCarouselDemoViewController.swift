@@ -17,7 +17,7 @@ class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCaro
     var isAutoPlay = false
     var clipBoundary = true
    
-    var carousel:LGCarousel = {
+    lazy var carousel:LGCarousel = {
         let carousel = LGCarousel(frame: CGRect(x: 20, y: CGFloat.navbar_statusbar_height+10, width: CGFloat.screen_width-40, height: 160))
         carousel.itemSize = CGSize.init(width: CGFloat.screen_width-80, height: 160)
         carousel.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
