@@ -20,15 +20,16 @@ LGDate.swift 包含时间戳、时间字符串等时间与字符串相互转化
 
 LGDefine.swift
 
-LGFont.swift 
+LGFont.swift 字体处理
 
-LGHelper.swift
+LGImage.swift， 颜色转图片
 
-LGImage.swift
-
-LGString.swift
+LGString.swift 字符串处理，去空格、换行，数字、邮箱格式等校验，字符串宽高计算等
 
 LGTool.swift
 
-LGWeakProxy.swift
+LGWeakProxy.swift， 可以用来打破Timer循环引用
+```
+self.timer = Timer(timeInterval: self.timerInterval, target: LGWeakProxy.proxyWithTarget(self, selector: #selector(self.autoScrollAction)), selector: #selector(self.autoScrollAction), userInfo: nil, repeats: true)
+```
 
