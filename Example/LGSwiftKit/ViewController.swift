@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }()
     
     private var dataSource: Array = {
-        return ["轮播demo","Hud(loading, toast)", "String扩展"]
+        return ["轮播demo","Hud(loading, toast)", "String扩展", "scroll联动"]
     }()
     
     override func viewDidLoad() {
@@ -67,6 +67,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("app名称："+String.appName())
             print("app版本："+String.appVersion())
             print("手机系统版本："+String.sys_version)
+        case 3:
+            vc = LGScrollLinkDemoViewController()
         default: break
         }
         
