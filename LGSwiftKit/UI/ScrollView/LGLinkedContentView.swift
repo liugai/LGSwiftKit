@@ -9,10 +9,27 @@ import UIKit
 
 public class LGLinkedContentView: UIView {
 
-    public var canScroll: Bool = false
-    public var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
+    var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
+    private var _scrollView: UIScrollView?
+    private var _canScroll: Bool = false
     
-    public var scrollView: UIScrollView?
+    public var canScroll: Bool {
+        get {
+            return _canScroll
+        }
+        set {
+            _canScroll = newValue
+        }
+    }
+    
+    public var scrollView: UIScrollView? {
+        get {
+            return _scrollView
+        }
+        set {
+            _scrollView = newValue
+        }
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
