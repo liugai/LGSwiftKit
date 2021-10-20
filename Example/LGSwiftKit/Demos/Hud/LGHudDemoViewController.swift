@@ -12,7 +12,7 @@ import LGSwiftKit
 class LGHudDemoViewController: UIViewController {
     
     var hudSuperView: UIView?
-    var style: LGHudColorStyle = .dark
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class LGHudDemoViewController: UIViewController {
         case 2:
             LGProgressHud.showText(text: "测试长文本toast测试长文本toast测试长文本toast测试长文本toast测试长文本toast", container: self.hudSuperView)
         case 3:
-            LGProgressHud.show(container: self.hudSuperView, style: self.style, hudType: .textloading, duration: 0, text: nil, compeletion: nil)
+            LGProgressHud.show(container: self.hudSuperView, style: LGProgressHud.shared.defaultStyle, hudType: .textloading, duration: 0, text: nil, compeletion: nil)
         default:
             break
         }
@@ -70,7 +70,7 @@ class LGHudDemoViewController: UIViewController {
     @objc func setClick(_ button: UIButton) -> Void {
         switch button.tag {
         case 0:
-            self.style = (style == .dark ? .light : .dark)
+            LGProgressHud.shared.defaultStyle = (LGProgressHud.shared.defaultStyle == .dark ? .light : .dark)
         case 1:
             LGProgressHud.dismiss(container: self.hudSuperView)
         default:

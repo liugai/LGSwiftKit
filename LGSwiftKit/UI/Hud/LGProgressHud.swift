@@ -8,11 +8,7 @@
 import UIKit
 
 private let hudTag = 1000001
-private let horMargin: CGFloat = 20
-private let verMargin: CGFloat = 20
-private let innerGap: CGFloat = 15
-private let hudMinWidth: CGFloat = 120
-private let hudMinHeight: CGFloat = 120
+
 
 public enum LGHudColorStyle {
     case light, dark
@@ -28,20 +24,43 @@ public class LGProgressHud: NSObject {
     
     public static let shared = LGProgressHud()
     
-    public var defaultStyle: LGHudColorStyle = .dark
     
-    public class func showLoading(container: UIView? = nil, text: String? = nil) {
-        self.show(container: container, style: .dark, hudType: .loading, duration: 0, text: nil, compeletion: nil)
+    public var defaultStyle: LGHudColorStyle = .dark
+    private var _horMargin: CGFloat = 20
+    private var _verMargin: CGFloat = 20
+    private var _innerGap: CGFloat = 15
+    private var _hudMinWidth: CGFloat = 120
+    private var _hudMinHeight: CGFloat = 120
+    
+    //MARK: - loading
+    public class func showLoading(container: UIView?, text: String? = nil) {
+        self.show(container: container, style: self.shared.defaultStyle, hudType: .loading, duration: 0, text: nil, compeletion: nil)
     }
 
-    public class func showText(text: String, container: UIView? = nil) {
-        self.show(container: container, style: .dark, hudType: .text, duration: 0, text: text, compeletion: nil)
+    //MARK: - toast
+    public class func showText(text: String) {
+        self.show(container: self.defaultContainerView(), style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: nil)
     }
     
-    public class func show(container: UIView?, style:LGHudColorStyle, hudType: LGHudType = .loading, duration:TimeInterval = 3, text:String?, compeletion: (() -> Void)? = nil) {
+    public class func showText(text: String , compeletion: (() -> Void)?) {
+        self.show(container: self.defaultContainerView(), style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: compeletion)
+    }
+    
+    public class func showText(text: String, container: UIView?) {
+        self.show(container: container, style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: nil)
+    }
+    
+    public class func showText(text: String, container: UIView? , compeletion: (() -> Void)? = nil) {
+        self.show(container: container, style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: compeletion)
+    }
+    
+    
+    //MARK: - 完整show
+    public class func show(container: UIView?, style:LGHudColorStyle, hudType: LGHudType, duration:TimeInterval = 3, text:String?, compeletion: (() -> Void)?) {
         LGHud.showHud(style: style, hudType: hudType, text: text, containerView: container ?? self.defaultContainerView(), compeletion: compeletion)
     }
     
+    //MARK: - dismiss
     public class func dismiss() {
         self.dismiss(container: self.defaultContainerView())
     }
@@ -56,6 +75,55 @@ public class LGProgressHud: NSObject {
         return UIApplication.shared.delegate!.window!!
     }
 
+}
+
+//MARK: - 定制样式
+extension LGProgressHud {
+    
+    public var horMargin: CGFloat {
+        get {
+            return _horMargin
+        }
+        set {
+            _horMargin = newValue
+        }
+    }
+    
+    public var verMargin: CGFloat {
+        get {
+            return _verMargin
+        }
+        set {
+            _verMargin = newValue
+        }
+    }
+    
+    public var innerGap: CGFloat {
+        get {
+            return _innerGap
+        }
+        set {
+            _innerGap = newValue
+        }
+    }
+    
+    public var hudMinWidth: CGFloat {
+        get {
+            return _hudMinWidth
+        }
+        set {
+            _hudMinWidth = min(max(120.0, newValue), CGFloat.screen_width/2)
+        }
+    }
+    public var hudMinHeight: CGFloat{
+        get {
+            return _hudMinHeight
+        }
+        set {
+            _hudMinHeight = min(max(120.0, newValue), CGFloat.screen_width/2)
+        }
+    }
+    
 }
 
 fileprivate class LGHud: UIView {
@@ -122,21 +190,21 @@ fileprivate class LGHud: UIView {
     
     
     func refreshSubLayout() {
-        var realWidth: CGFloat = hudMinWidth
-        var realHeight: CGFloat = hudMinHeight
+        var realWidth: CGFloat = LGProgressHud.shared.hudMinWidth
+        var realHeight: CGFloat = LGProgressHud.shared.hudMinHeight
         
         if let label = textLabel, let loadingView = indicatorView {
             realWidth = CGFloat.screen_width/2.0
-            var labelSize: CGSize = label.text!.size(width: realWidth-horMargin*2, font: label.font)
+            var labelSize: CGSize = label.text!.size(width: realWidth-LGProgressHud.shared.horMargin*2, font: label.font)
             labelSize.height = min(labelSize.height, label.font.lineHeight*2)
-            realWidth = max(hudMinWidth, labelSize.width+horMargin*2)
-            realHeight = verMargin+loadingView.frame.size.height+innerGap+labelSize.height+verMargin
+            realWidth = max(LGProgressHud.shared.hudMinWidth, labelSize.width+LGProgressHud.shared.horMargin*2)
+            realHeight = LGProgressHud.shared.verMargin+loadingView.frame.size.height+LGProgressHud.shared.innerGap+labelSize.height+LGProgressHud.shared.verMargin
             let sizeHud = CGSize(width: realWidth, height: realHeight)
             self.frame = CGRect(x: (self.containerView.frame.size.width-sizeHud.width)/2.0, y: (self.containerView.frame.size.height-sizeHud.height)/2.0, width: sizeHud.width, height: sizeHud.height)
             
-            let top = (sizeHud.height-loadingView.frame.size.height-innerGap-labelSize.height)/2.0;
+            let top = (sizeHud.height-loadingView.frame.size.height-LGProgressHud.shared.innerGap-labelSize.height)/2.0;
             loadingView.center = CGPoint(x: sizeHud.width/2.0, y: top+loadingView.frame.size.height/2.0)
-            label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: loadingView.frame.maxY+innerGap, width: labelSize.width, height: labelSize.height)
+            label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: loadingView.frame.maxY+LGProgressHud.shared.innerGap, width: labelSize.width, height: labelSize.height)
             loadingView.startAnimating()
             return
         }
@@ -151,10 +219,10 @@ fileprivate class LGHud: UIView {
         
         if let label = textLabel {
             realWidth = CGFloat.screen_width*2.0/3.0
-            var labelSize: CGSize = label.text!.size(width: realWidth-horMargin*2, font: label.font)
+            var labelSize: CGSize = label.text!.size(width: realWidth-LGProgressHud.shared.horMargin*2, font: label.font)
             labelSize.height = min(labelSize.height, label.font.lineHeight*2)
-            realWidth = max(hudMinWidth, labelSize.width+horMargin*2)
-            realHeight = verMargin+labelSize.height+verMargin
+            realWidth = max(LGProgressHud.shared.hudMinWidth, labelSize.width+LGProgressHud.shared.horMargin*2)
+            realHeight = LGProgressHud.shared.verMargin+labelSize.height+LGProgressHud.shared.verMargin
             let sizeHud = CGSize(width: realWidth, height: realHeight)
             self.frame = CGRect(x: (self.containerView.frame.size.width-sizeHud.width)/2.0, y: (self.containerView.frame.size.height-sizeHud.height)/2.0, width: sizeHud.width, height: sizeHud.height)
             label.frame = CGRect(x: (sizeHud.width-labelSize.width)/2.0, y: (sizeHud.height-labelSize.height)/2.0, width: labelSize.width, height: labelSize.height)
