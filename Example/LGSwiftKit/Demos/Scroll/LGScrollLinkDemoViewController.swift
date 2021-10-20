@@ -12,7 +12,7 @@ import LGSwiftKit
 class LGScrollLinkDemoViewController: UIViewController {
     
     lazy var linkedScrollView: LGMainScrollLinkedView = {
-        return LGMainScrollLinkedView(frame: CGRect(x: 0, y: 0, width: CGFloat.screen_width, height: CGFloat.screen_height))
+        return LGMainScrollLinkedView(frame: CGRect(x: 0, y: CGFloat.navbar_statusbar_height, width: CGFloat.screen_width, height: CGFloat.screen_height-CGFloat.navbar_statusbar_height))
     }()
 
     var segmentControl: UISegmentedControl = {
@@ -37,9 +37,11 @@ class LGScrollLinkDemoViewController: UIViewController {
         self.segmentView.addSubview(self.segmentControl)
         
         self.view.addSubview(self.linkedScrollView)
-        self.linkedScrollView.headerView.addSubview(self.segmentView)
+        
         self.linkedScrollView.headerView.backgroundColor = UIColor.cyan
-        self.linkedScrollView.updateHeaderFrame(frame: CGRect(x: 0, y: 0, width: CGFloat.screen_width, height: 200))
+        self.linkedScrollView.updateHeaderFrame(frame: CGRect(x: 0, y: 0, width: CGFloat.screen_width, height: 150))
+        self.linkedScrollView.fixedView.addSubview(self.segmentView)
+        self.linkedScrollView.updateFixedFrame(frame: CGRect(x: 0, y: self.linkedScrollView.headerView.frame.maxY, width: CGFloat.screen_width, height: 50))
         self.setupScrollContents()
     }
     
@@ -48,7 +50,8 @@ class LGScrollLinkDemoViewController: UIViewController {
         for i in 0..<4 {
             let view = LGLinkedContentView(frame: CGRect.zero)
             let scroll = UIScrollView()
-            scroll.backgroundColor = UIColor.lg_rgb(CGFloat(i)*50.0, CGFloat(i)*50.0, CGFloat(i)*50.0)
+            scroll.backgroundColor = UIColor.lg_rgb(0, CGFloat(i)*50.0, CGFloat(i)*50.0)
+            scroll.contentSize = CGSize(width: CGFloat.screen_width, height: CGFloat.screen_height*2)
             view.setupScrollView(scrollView: scroll)
             array.append(view)
         }

@@ -138,10 +138,7 @@ extension UIColor{
 // MARK: - RGB颜色
 
 extension UIColor{
-    public static func lg_rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 1) -> UIColor{
-        guard a>=0 && a<=1 && r>=0 && r<=255 && g>=0 && g<=255 && b>=0 && b<=255 else {
-            return UIColor.clear
-        }
+    public static func lg_rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 255) -> UIColor{
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a/255.0)
     }
 }

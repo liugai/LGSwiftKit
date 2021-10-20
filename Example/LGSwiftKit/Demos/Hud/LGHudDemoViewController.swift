@@ -17,7 +17,6 @@ class LGHudDemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        let temp = "adfa"
         var array = ["样式", "隐藏"]
         var yTemp: CGFloat = CGFloat.navbar_statusbar_height+20.0
         for i in 0..<array.count{

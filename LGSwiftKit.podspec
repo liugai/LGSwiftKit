@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LGSwiftKit"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A short description of LGSwiftKit."
   s.description  = "my kit"
   s.homepage     = "https://github.com/liugai/LGSwiftKit"

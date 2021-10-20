@@ -21,8 +21,13 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     public lazy var scrollContainerView: UIScrollView = {
         return UIScrollView()
     }()
-    // 可以自定义一个视图插入,比如头图、segment
+    // 可以自定义一个视图插入,比如头图、
     public lazy var headerView: UIView = {
+        return UIView()
+    }()
+    
+    // 可以自定义一个视图插入,比如segment、
+    public lazy var fixedView: UIView = {
         return UIView()
     }()
     
@@ -43,18 +48,24 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     }
     
     private func initUI() {
+        if #available(iOS 11.0, *) {
+            self.mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
+        }
         self.addSubview(self.mainScrollView)
         self.mainScrollView.addSubview(self.headerView)
+        self.mainScrollView.addSubview(self.fixedView)
         self.mainScrollView.addSubview(self.scrollContainerView);
         self.mainScrollView.delegate = self
         self.scrollContainerView.delegate = self
         self.scrollContainerView.isPagingEnabled = true
+        
+        self.mainScrollView.panGestureRecognizer.require(toFail: self.scrollContainerView.panGestureRecognizer)
     }
     
     // MARK: - frame设置
     private func refreshFrame() {
         self.mainScrollView.frame = self.bounds
-        self.scrollContainerView.frame = CGRect(x: 0, y: self.headerView.frame.maxY, width: self.bounds.size.width, height: self.bounds.size.height)
+        self.scrollContainerView.frame = CGRect(x: 0, y: self.fixedView.frame.maxY, width: self.bounds.size.width, height: self.bounds.size.height-self.fixedView.frame.height)
         if let pages = self.pageViews {
             var originX: CGFloat = 0
             for view in pages {
@@ -63,7 +74,7 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
             }
             
             self.scrollContainerView.contentSize = CGSize(width: self.scrollContainerView.frame.width*CGFloat(pages.count), height: self.scrollContainerView.frame.height)
-            self.mainScrollView.contentSize = CGSize(width: self.bounds.width, height: self.headerView.frame.height+self.scrollContainerView.frame.height);
+            self.mainScrollView.contentSize = CGSize(width: self.bounds.width, height: self.headerView.frame.height+self.fixedView.frame.height+self.mainScrollView.frame.height);
         }
         else {
             self.scrollContainerView.contentSize = CGSize.zero
@@ -78,6 +89,11 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     
     public func updateHeaderFrame(frame:CGRect) {
         self.headerView.frame = frame
+        self.refreshFrame()
+    }
+    
+    public func updateFixedFrame(frame:CGRect) {
+        self.fixedView.frame = frame
         self.refreshFrame()
     }
     
@@ -106,13 +122,12 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     // MARK: - scroll delegate
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.mainScrollView {
-            self.headerView.isHidden = (scrollView.contentOffset.y>=self.headerView.frame.height)
             if !self.mainCanScroll {
-                scrollView.contentOffset = CGPoint(x: 0, y: self.headerView.frame.height)
+                scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY)
                 self.currentContentView?.canScroll = true
             } else {
-                if scrollView.contentOffset.y >= self.headerView.frame.height {
-                    scrollView.contentOffset = CGPoint(x: 0, y: self.headerView.frame.height);
+                if scrollView.contentOffset.y >= self.fixedView.frame.minY {
+                    scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY);
                     self.mainCanScroll = false
                     self.currentContentView?.canScroll = true
                 }
@@ -135,6 +150,7 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     private func handleContentScroll(scrollView: UIScrollView) -> Void {
         if scrollView == self.scrollContainerView {
             let page: UInt = UInt(self.scrollContainerView.contentOffset.x/max(1, self.scrollContainerView.frame.width))
+            self.currentContentView = self.pageViews?[Int(page)]
             if let delegate = self.delegate {
                 delegate.pageChanged(pageIndex: page)
             }
