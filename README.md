@@ -9,7 +9,7 @@ import LGSwiftKit
 
 # 内容说明
 ## 轮播GIF示例
-
+![Image text](https://github.com/liugai/LGSwiftKit/blob/master/File/carousel.gif)
 ### 代码示例
 
 先创建单个轮播控件
@@ -93,7 +93,7 @@ class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCaro
 ```
 
 ## toast loading GIF示例
-
+![Image text](https://github.com/liugai/LGSwiftKit/blob/master/File/loading.gif)
 ### 代码示例
 ```
 import LGSwiftKit
@@ -109,7 +109,7 @@ LGProgressHud.dismiss(container: self.hudSuperView)
 ```
 
 ## scroll嵌套联动
-
+![Image text](https://github.com/liugai/LGSwiftKit/blob/master/File/scroll.gif)
 ### 代码示例
 先创建page
 ```
