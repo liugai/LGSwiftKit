@@ -9,7 +9,7 @@
 import UIKit
 import LGSwiftKit
 
-class LGScrollLinkDemoViewController: UIViewController {
+class LGScrollLinkDemoViewController: UIViewController, LGMainScrollLinkedViewDelegate{
     
     lazy var linkedScrollView: LGMainScrollLinkedView = {
         return LGMainScrollLinkedView(frame: CGRect(x: 0, y: CGFloat.navbar_statusbar_height, width: CGFloat.screen_width, height: CGFloat.screen_height-CGFloat.navbar_statusbar_height))
@@ -20,11 +20,7 @@ class LGScrollLinkDemoViewController: UIViewController {
         segment.selectedSegmentIndex = 0
         return segment
     }()
-    lazy var segmentView: UIView = {
-        return UIView()
-    }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -34,33 +30,34 @@ class LGScrollLinkDemoViewController: UIViewController {
     
     func initUI() -> Void {
         self.segmentControl.addTarget(self, action: #selector(self.segmentValueChanged(segment:)), for: UIControlEvents.valueChanged)
-        self.segmentView.addSubview(self.segmentControl)
-        
+        self.linkedScrollView.delegate = self
         self.view.addSubview(self.linkedScrollView)
-        
         self.linkedScrollView.headerView.backgroundColor = UIColor.cyan
         self.linkedScrollView.updateHeaderFrame(frame: CGRect(x: 0, y: 0, width: CGFloat.screen_width, height: 150))
-        self.linkedScrollView.fixedView.addSubview(self.segmentView)
-        self.linkedScrollView.updateFixedFrame(frame: CGRect(x: 0, y: self.linkedScrollView.headerView.frame.maxY, width: CGFloat.screen_width, height: 50))
+        self.linkedScrollView.fixedView.backgroundColor = UIColor.gray
+        self.linkedScrollView.fixedView.addSubview(self.segmentControl)
+        self.segmentControl.center = CGPoint(x: CGFloat.screen_width/2, y: self.segmentControl.center.y)
+        self.linkedScrollView.updateFixedFrame(frame: CGRect(x: 0, y: self.linkedScrollView.headerView.frame.maxY, width: CGFloat.screen_width, height: self.segmentControl.frame.height))
         self.setupScrollContents()
     }
     
     func setupScrollContents() {
-        var array: Array<LGLinkedContentView> = []
-        for i in 0..<4 {
-            let view = LGLinkedContentView(frame: CGRect.zero)
-            let scroll = UIScrollView()
-            scroll.backgroundColor = UIColor.lg_rgb(0, CGFloat(i)*50.0, CGFloat(i)*50.0)
-            scroll.contentSize = CGSize(width: CGFloat.screen_width, height: CGFloat.screen_height*2)
-            view.setupScrollView(scrollView: scroll)
+        var array: Array<LGLinkedContentProtocol> = []
+        for item in ["推荐","兴趣","爱好"] {
+            let view = LGScrollLinkContentViewController()
+            view.tableTitle = item
+            view.setupUI()
             array.append(view)
         }
         self.linkedScrollView.setupPageViews(array)
     }
 
     @objc func segmentValueChanged(segment: UISegmentedControl) -> Void {
-        
+        self.linkedScrollView.setPage(page: UInt(segment.selectedSegmentIndex))
     }
 
-
+    // MARK: LGMainScrollLinkedViewDelegate
+    func scrollLinkedPageChanged(pageIndex: UInt) {
+        self.segmentControl.selectedSegmentIndex = Int(pageIndex)
+    }
 }

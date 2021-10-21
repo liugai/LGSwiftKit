@@ -7,8 +7,8 @@
 
 import UIKit
 
-public protocol LGMainScrollLinkedViewDelegate: NSObjectProtocol {
-    func pageChanged(pageIndex: UInt) -> Void;
+@objc public protocol LGMainScrollLinkedViewDelegate: NSObjectProtocol {
+    func scrollLinkedPageChanged(pageIndex: UInt) -> Void;
 }
 
 public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
@@ -33,9 +33,9 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     
     private var mainCanScroll = true
 
-    public var currentContentView: LGLinkedContentView?
+    public var currentContentView: LGLinkedContentProtocol?
     
-    private var pageViews: Array<LGLinkedContentView>?
+    private var pageViews: Array<LGLinkedContentProtocol>?
 
     // MARK: - 初始化
     public override init(frame: CGRect) {
@@ -69,8 +69,11 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         if let pages = self.pageViews {
             var originX: CGFloat = 0
             for view in pages {
-                view.frame = CGRect(x: originX, y: 0, width: self.scrollContainerView.bounds.size.width, height: self.scrollContainerView.bounds.size.height)
-                originX = view.frame.maxX
+                view.linkedContentView.rootView?.frame = CGRect(x: originX, y: 0, width: self.scrollContainerView.bounds.size.width, height: self.scrollContainerView.bounds.size.height)
+                if let rootView = view.linkedContentView.rootView {
+                    originX = rootView.frame.maxX
+                }
+                
             }
             
             self.scrollContainerView.contentSize = CGSize(width: self.scrollContainerView.frame.width*CGFloat(pages.count), height: self.scrollContainerView.frame.height)
@@ -97,20 +100,32 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         self.refreshFrame()
     }
     
-    public func setupPageViews(_ pageViews: Array<LGLinkedContentView>?) {
+    public func setPage(page: UInt) {
+        guard let pages = self.pageViews else {
+            return
+        }
+        if page <= pages.count-1 {
+            self.scrollContainerView.setContentOffset(CGPoint(x: CGFloat(page)*self.scrollContainerView.frame.width, y: 0), animated: true)
+        }
+    }
+    
+    public func setupPageViews(_ pageViews: Array<LGLinkedContentProtocol>?) {
         if let pages = self.pageViews {
             for view in pages {
-                view.removeFromSuperview()
+                view.linkedContentView.rootView?.removeFromSuperview()
             }
             self.pageViews = nil
             self.mainCanScroll = true
         }
         if let pages = pageViews {
             for view in pages {
-                self.scrollContainerView.addSubview(view)
-                view.superCanScrollBlock = { [weak self](superCanScroll) in
-                    self?.mainCanScroll = superCanScroll
+                if let rootView = view.linkedContentView.rootView {
+                    self.scrollContainerView.addSubview(rootView)
+                    view.linkedContentView.superCanScrollBlock = { [weak self](superCanScroll) in
+                        self?.mainCanScroll = superCanScroll
+                    }
                 }
+                
             }
             self.pageViews = pageViews
             self.currentContentView = pages.first
@@ -124,12 +139,12 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         if scrollView == self.mainScrollView {
             if !self.mainCanScroll {
                 scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY)
-                self.currentContentView?.canScroll = true
+                self.currentContentView?.linkedContentView.canScroll = true
             } else {
                 if scrollView.contentOffset.y >= self.fixedView.frame.minY {
                     scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY);
                     self.mainCanScroll = false
-                    self.currentContentView?.canScroll = true
+                    self.currentContentView?.linkedContentView.canScroll = true
                 }
             }
         }
@@ -151,8 +166,8 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         if scrollView == self.scrollContainerView {
             let page: UInt = UInt(self.scrollContainerView.contentOffset.x/max(1, self.scrollContainerView.frame.width))
             self.currentContentView = self.pageViews?[Int(page)]
-            if let delegate = self.delegate {
-                delegate.pageChanged(pageIndex: page)
+            if let delegate = self.delegate, delegate.responds(to: #selector(delegate.scrollLinkedPageChanged(pageIndex:))) {
+                delegate.scrollLinkedPageChanged(pageIndex: page)
             }
         }
     }

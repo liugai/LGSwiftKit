@@ -7,8 +7,20 @@
 
 import UIKit
 
+public protocol LGLinkedContentProtocol: UIResponder {
+    var linkedContentView: LGLinkedContentView { get set}
+    func setupUI();
+}
+
+
 public class LGLinkedContentView: UIView {
 
+    public weak var _rootView: UIView?
+    public weak var rootView: UIView? {
+        get {
+            return _rootView
+        }
+    }
     var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
     private var _scrollView: UIScrollView?
     private var _canScroll: Bool = false
@@ -59,6 +71,16 @@ public class LGLinkedContentView: UIView {
         scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
+    public func setupRootView(rootView: UIView){
+        if let view = self.rootView {
+            view.removeObserver(self, forKeyPath: "frame")
+            _rootView = nil
+        }
+        
+        _rootView = rootView
+        rootView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.new, context: nil)
+    }
+    
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let kPath = keyPath, let scroll = self.scrollView, kPath == "contentOffset" {
             DispatchQueue.main.async {
@@ -80,11 +102,22 @@ public class LGLinkedContentView: UIView {
             }
             
         }
+        
+        if let kPath = keyPath, let rootView = self.rootView, kPath == "frame" {
+            DispatchQueue.main.async {
+                self.frame = rootView.bounds
+            }
+            
+        }
     }
     
     deinit {
         if let scroll = scrollView {
             scroll.removeObserver(self, forKeyPath: "contentOffset")
+        }
+        
+        if let rootView = rootView {
+            rootView.removeObserver(self, forKeyPath: "frame")
         }
     }
 }
