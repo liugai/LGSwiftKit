@@ -44,7 +44,7 @@ public class LGProgressHud: NSObject {
     //MARK: -
     //MARK: loading
     public class func showLoading(container: UIView?, text: String? = nil) {
-        self.show(container: container, style: self.shared.defaultStyle, hudType: .loading, duration: 0, text: nil, compeletion: nil)
+        self.show(container: container, style: self.shared.defaultStyle, hudType: ((text != nil) ? .textloading : .loading), duration: 0, text: text, compeletion: nil)
     }
 
     //MARK: toast
