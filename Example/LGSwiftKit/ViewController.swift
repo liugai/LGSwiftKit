@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.delegate = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         self.view.addSubview(self.tableView)
-        self.tableView.frame = CGRect(x: 0, y: CGFloat.statusbar_height, width: CGFloat.screen_width, height: CGFloat.screen_height-CGFloat.statusbar_height-CGFloat.tabbar_safe_height)
+        self.tableView.frame = CGRect(x: 0, y: CGFloat.statusbar_height, width: CGFloat.screen_width, height: CGFloat.screen_height-CGFloat.statusbar_height-CGFloat.bottom_safe_height)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

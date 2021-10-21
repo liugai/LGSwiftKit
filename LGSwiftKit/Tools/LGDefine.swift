@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: DEBUG模式打印
 func debugPrint<T>(_ message: T, filePath: String = #file, function:String = #function, rowCount: Int = #line) {
     #if DEBUG
     let fileName = (filePath as NSString).lastPathComponent.replacingOccurrences(of: ".swift", with: "")

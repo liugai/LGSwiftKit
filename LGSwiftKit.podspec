@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LGSwiftKit"
-  s.version      = "0.0.4"
+  s.version      = "1.0.0"
   s.summary      = "A short description of LGSwiftKit."
   s.description  = "my kit"
   s.homepage     = "https://github.com/liugai/LGSwiftKit"
@@ -10,4 +10,29 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files  = "LGSwiftKit/**/*"
   s.platform = :ios, "9.0"
+  
+  s.subspec 'LGSwiftTool' do |m|
+      m.source_files = 'LGSwiftKit/Tools/**/*'
+  end
+  
+  s.subspec 'LGSwiftCarousel' do |m|
+      m.source_files = 'LGSwiftKit/UI/Carousel/**/*'
+      m.dependency 'LGSwiftKit/LGSwiftTool'
+  end
+  
+  s.subspec 'LGSwiftHud' do |m|
+      m.source_files = 'LGSwiftKit/UI/Hud/**/*'
+      m.dependency 'LGSwiftKit/LGSwiftTool'
+  end
+  
+  s.subspec 'LGSwiftLinkedScroll' do |m|
+      m.source_files = 'LGSwiftKit/UI/ScrollView/**/*'
+      m.dependency 'LGSwiftKit/LGSwiftTool'
+  end
+  
+  s.subspec 'LGSwiftUI' do |m|
+      m.source_files = 'LGSwiftKit/UI/**/*'
+      m.dependency 'LGSwiftKit/LGSwiftTool'
+  end
+  
 end

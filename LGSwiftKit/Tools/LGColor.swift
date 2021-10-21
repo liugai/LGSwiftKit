@@ -13,6 +13,7 @@ import UIKit
 // MARK: - 16进制颜色
 extension UIColor{
     
+    //MARK: 常用16进制颜色值枚举
     private enum LGColorType:String {
         case Color_2C = "#2c2c2c"
         case Color_99 = "#999999"
@@ -82,9 +83,7 @@ extension UIColor{
         return UIColor(red: CGFloat(r.pointee)/255.0, green: CGFloat(g.pointee)/255.0, blue: CGFloat(b.pointee)/255.0, alpha: CGFloat(a.pointee)/255.0)
     }
     
-    
-    
-    
+    //MARK: 私有
     private static func colorFromOxEnum(_ colorType: LGColorType) -> UIColor{
         return UIColor.colorOfOxString(oxString: colorType.rawValue)
     }
@@ -138,8 +137,14 @@ extension UIColor{
 // MARK: - RGB颜色
 
 extension UIColor{
+    //MARK: RGBA颜色 (0~255)
     public static func lg_rgb(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 255) -> UIColor{
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a/255.0)
+    }
+    
+    //MARK: RGBA颜色 (0~1)
+    public static func lg_rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat) -> UIColor{
+        return UIColor(red: max(0, min(r, 1)), green: max(0, min(g, 1)), blue: max(0, min(b, 1)), alpha: max(0, min(a, 1)))
     }
 }
 

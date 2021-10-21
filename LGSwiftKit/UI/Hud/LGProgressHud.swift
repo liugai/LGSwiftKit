@@ -7,55 +7,66 @@
 
 import UIKit
 
+/**hud tag标识**/
 private let hudTag = 1000001
 
-
+/**hud 颜色样式**/
 public enum LGHudColorStyle {
-    case light, dark
+    case light /**浅色背景**/
+    case dark /**深色背景**/
 }
 
 public enum LGHudType {
-    case text
-    case loading
-    case textloading
+    case text /**文本toast**/
+    case loading /**单纯loading**/
+    case textloading /**loading+文本**/
 }
 
 public class LGProgressHud: NSObject {
     
+    /**单例，用于设置全局样式**/
     public static let shared = LGProgressHud()
     
-    
+    /**默认全局样式**/
     public var defaultStyle: LGHudColorStyle = .dark
+    
+    /**水平左右间距**/
     private var _horMargin: CGFloat = 20
+    /**竖直上下间距**/
     private var _verMargin: CGFloat = 20
+    /**文本与loading之间间距**/
     private var _innerGap: CGFloat = 15
+    /**hud最小宽度**/
     private var _hudMinWidth: CGFloat = 120
+    /**hud最小高度**/
     private var _hudMinHeight: CGFloat = 120
     
-    //MARK: - loading
+    //MARK: -
+    //MARK: loading
     public class func showLoading(container: UIView?, text: String? = nil) {
         self.show(container: container, style: self.shared.defaultStyle, hudType: .loading, duration: 0, text: nil, compeletion: nil)
     }
 
-    //MARK: - toast
+    //MARK: toast
     public class func showText(text: String) {
         self.show(container: self.defaultContainerView(), style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: nil)
     }
-    
+    //MARK: toast 消失时回调
     public class func showText(text: String , compeletion: (() -> Void)?) {
         self.show(container: self.defaultContainerView(), style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: compeletion)
     }
-    
+    //MARK: toast 容器view
     public class func showText(text: String, container: UIView?) {
         self.show(container: container, style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: nil)
     }
     
+    //MARK: toast 容器view 消失时回调
     public class func showText(text: String, container: UIView? , compeletion: (() -> Void)? = nil) {
         self.show(container: container, style: self.shared.defaultStyle, hudType: .text, duration: 0, text: text, compeletion: compeletion)
     }
     
     
-    //MARK: - 完整show
+    //MARK: 完整show
     public class func show(container: UIView?, style:LGHudColorStyle, hudType: LGHudType, duration:TimeInterval = 3, text:String?, compeletion: (() -> Void)?) {
         LGHud.showHud(style: style, hudType: hudType, text: text, containerView: container ?? self.defaultContainerView(), compeletion: compeletion)
     }
@@ -71,6 +82,7 @@ public class LGProgressHud: NSObject {
         realHud.dismiss()
     }
     
+    //MARK: 默认容器视图
     private class func defaultContainerView() -> UIView {
         return UIApplication.shared.delegate!.window!!
     }
@@ -80,6 +92,7 @@ public class LGProgressHud: NSObject {
 //MARK: - 定制样式
 extension LGProgressHud {
     
+    //MARK: 水平间距
     public var horMargin: CGFloat {
         get {
             return _horMargin
@@ -89,6 +102,7 @@ extension LGProgressHud {
         }
     }
     
+    //MARK: 竖直间距
     public var verMargin: CGFloat {
         get {
             return _verMargin
@@ -98,6 +112,7 @@ extension LGProgressHud {
         }
     }
     
+    //MARK: 文本loading之间间距
     public var innerGap: CGFloat {
         get {
             return _innerGap
@@ -107,6 +122,7 @@ extension LGProgressHud {
         }
     }
     
+    //MARK: hud最小宽度
     public var hudMinWidth: CGFloat {
         get {
             return _hudMinWidth
@@ -115,6 +131,8 @@ extension LGProgressHud {
             _hudMinWidth = min(max(120.0, newValue), CGFloat.screen_width/2)
         }
     }
+    
+    //MARK: hud最小高度
     public var hudMinHeight: CGFloat{
         get {
             return _hudMinHeight
@@ -128,15 +146,23 @@ extension LGProgressHud {
 
 fileprivate class LGHud: UIView {
     
+    /**背景样式 **/
     var style:LGHudColorStyle
+    /**hud类型**/
     var hudType:LGHudType
-    
+    /**消失回调**/
     var completion:(()->Void)?
+    
+    /**loading视图**/
     private var indicatorView: UIActivityIndicatorView?
+    /**文本视图**/
     private var textLabel: UILabel?
+    /**容器视图**/
     private var containerView: UIView
+    /**toast持续时间**/
     private var duration: TimeInterval = 3.0
     
+    /**文本**/
     var text: String?
     
     override init(frame: CGRect) {
@@ -188,7 +214,7 @@ fileprivate class LGHud: UIView {
         self.layer.cornerRadius = 8
     }
     
-    
+    //MARK: 布局
     func refreshSubLayout() {
         var realWidth: CGFloat = LGProgressHud.shared.hudMinWidth
         var realHeight: CGFloat = LGProgressHud.shared.hudMinHeight
@@ -230,6 +256,7 @@ fileprivate class LGHud: UIView {
         }
     }
     
+    //MARK: 创建文本视图
     func createLabel() {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
@@ -244,6 +271,7 @@ fileprivate class LGHud: UIView {
         self.textLabel = label
     }
     
+    //MARK: 创建loading视图
     func createIndicatorView() {
         var loadinView:UIActivityIndicatorView?
         if #available(iOS 13.0, *) {
@@ -267,6 +295,7 @@ fileprivate class LGHud: UIView {
 
 extension LGHud {
     
+    //MARK: 移除hud
     @objc func dismiss() {
         if let completion = self.completion {
             completion()
@@ -274,11 +303,13 @@ extension LGHud {
         self.removeFromSuperview()
     }
     
+    //MARK: 当前容器视图中，展示hud前 已有的hud
     func beforeHud(container: UIView) -> Self? {
         guard let hud = container.viewWithTag(hudTag) , let realHud = hud as? LGHud else { return nil}
         return (realHud as! Self)
     }
     
+    //MARK: 展示hud
     class func showHud(style:LGHudColorStyle = LGHudColorStyle.dark, hudType:LGHudType = LGHudType.text, text:String? , containerView: UIView,  duartion: TimeInterval = 2.0, compeletion: (() -> Void)?) -> Void {
         let hud = LGHud(style: style, hudType: hudType, text: text, containerView: containerView, duartion: duartion, compeletion: compeletion)
         if let beforeHud = hud.beforeHud(container: containerView) {

@@ -2,7 +2,11 @@
 常用Swift工具类(尺寸、轮播组件、日期等)
 
 # CocoaPods
-pod 'LGSwiftKit'
+pod 'LGSwiftKit' #包含整个库，目前等价于pod 'LGSwiftKit/LGSwiftUI'
+pod 'LGSwiftKit/LGSwiftTool' #单纯工具类，如string、date等
+pod 'LGSwiftKit/LGSwiftCarousel' #包含工具类，轮播
+pod 'LGSwiftKit/LGSwiftHud' #包含工具类，toast、loading
+pod 'LGSwiftKit/LGSwiftLinkedScroll' #包含工具类，scroll联动组件
 
 # 使用
 import LGSwiftKit
