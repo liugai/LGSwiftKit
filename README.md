@@ -16,75 +16,26 @@ import LGSwiftKit
 ![Image text](https://github.com/liugai/LGSwiftKit/blob/master/File/carousel.gif)
 ### 代码示例
 
-先创建单个轮播控件
+使用(关键代码)
 ```
 import LGSwiftKit
-class LGCarouselImageItemView: LGCarouselItemView {
-    var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    } ()
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.addSubview(self.imageView)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView.frame = self.bounds
-    }
-}
+//创建单个page视图
+class LGCarouselImageItemView: LGCarouselItemView
 
-```
-
-使用
-```
-
-class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCarouselDataSource {
-
-    lazy var carousel:LGCarousel = {
+//创建轮播视图
         let carousel = LGCarousel(frame: CGRect(x: 20, y: CGFloat.navbar_statusbar_height+10, width: CGFloat.screen_width-40, height: 160))
         carousel.itemSize = CGSize.init(width: CGFloat.screen_width-80, height: 160)
         carousel.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         carousel.registerClass(itemClass: LGCarouselImageItemView.self, reuseIdentifier: "LGCarouselImageItemView")
         carousel.layer.borderColor = UIColor.red.cgColor
         carousel.layer.borderWidth = 1
-        return carousel
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        self.initUI()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    func initUI() -> Void {
-        self.carousel.pageEnabled = self.isPage
-        self.carousel.cycleEnabled = self.isCycle
-        self.carousel.autoPlayEnabled = self.isAutoPlay
-        self.carousel.shouldClipBoundary = self.clipBoundary
-        self.carousel.delegate = self
-        self.carousel.dataSource = self
-        self.view.addSubview(self.carousel)
-        self.carousel.reloadData()
-    }
-
-    func carouselDidItemIndexChanged(_ carousel: LGCarousel, itemIndex: UInt) {
-        
-    }
-    
-    func carouselDidClick(_ carousel: LGCarousel, itemIndex: UInt) {
-        
-    }
-    
+        carousel.pageEnabled = true
+        carousel.cycleEnabled = true
+        carousel.autoPlayEnabled = true
+        carousel.shouldClipBoundary = true
+        carousel.delegate = self
+        carousel.dataSource = self
+//实现代理       
     func carouselItemsCount(_ carousel: LGCarousel) -> UInt {
         return 10
     }
@@ -92,7 +43,6 @@ class LGCarouselDemoViewController: UIViewController, LGCarouselDelegate, LGCaro
     func carouselItemView(_ carousel: LGCarousel, itemView: LGCarouselItemView, itemIndex: UInt) {
         (itemView as! LGCarouselImageItemView).imageView.image = UIImage.init(contentsOfFile:  Bundle.main.path(forResource: String(format: "scenery_%lu", itemIndex+1), ofType: "JPG")!)
     }
-}
 
 ```
 
@@ -117,9 +67,19 @@ LGProgressHud.dismiss(container: self.hudSuperView)
 ### 代码示例
 先创建page
 ```
+import LGSwiftKit
 class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtocol, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: - LGLinkedContentProtocol协议中的属性
+    weak var rootView: UIView?
     
+    var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
+
+    var canScroll: Bool = false
+    
+    var scrollView: UIScrollView?
+    
+    // MARK: - 自有属性
     var tableTitle: String?
     
     lazy var tableView: UITableView = {
@@ -127,22 +87,17 @@ class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtoc
         return tableView
     }()
     
-    lazy var linkedContentView: LGLinkedContentView = {
-        let contentView = LGLinkedContentView(frame: CGRect.zero)
-        return contentView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    
+    // MARK: 必须实现
     func setupUI() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.view.addSubview(self.linkedContentView)
-        self.linkedContentView.setupRootView(rootView: self.view)
-        self.linkedContentView.setupScrollView(scrollView: self.tableView)
+        self.setupRootView(rootView: self.view)
+        self.setupScrollView(scrollView: self.tableView, scrollSuper: self.view)
     }
     
     
@@ -166,6 +121,15 @@ class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtoc
         return cell
     }
 
+    // MARK: 必须实现
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.observerChanged(keyPath: keyPath)
+    }
+    
+    deinit {
+        // MARK: 必须实现
+        self.removeAllObserver()
+    }
 }
 ```
 

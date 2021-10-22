@@ -8,55 +8,21 @@
 import UIKit
 
 public protocol LGLinkedContentProtocol: UIResponder {
-    var linkedContentView: LGLinkedContentView { get set}
-    func setupUI();
+    //MARK: scroll视图所在page根视图，只声明，不直接设置
+    var rootView: UIView? { get set }
+    //MARK: 是否能够滚动判断回调，声明即可
+    var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)? { get set }
+    //MARK: scrollView，只声明，不直接设置
+    var scrollView: UIScrollView? { get set }
+    //MARK: 当前page是否能够滚动，声明即可
+    var canScroll: Bool { get set }
+    //MARK: 只实现，不调用
+    func setupUI()
 }
 
-
-public class LGLinkedContentView: UIView {
-
-    public weak var _rootView: UIView?
-    public weak var rootView: UIView? {
-        get {
-            return _rootView
-        }
-    }
-    var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
-    private var _scrollView: UIScrollView?
-    private var _canScroll: Bool = false
+extension LGLinkedContentProtocol {
     
-    public var canScroll: Bool {
-        get {
-            return _canScroll
-        }
-        set {
-            _canScroll = newValue
-        }
-    }
-    
-    public var scrollView: UIScrollView? {
-        get {
-            return _scrollView
-        }
-        set {
-            _scrollView = newValue
-        }
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.scrollView?.frame = self.bounds
-    }
-    
-    public func setupScrollView(scrollView: UIScrollView){
+    public func setupScrollView(scrollView: UIScrollView, scrollSuper: UIView){
         if let scroll = self.scrollView {
             scroll.removeObserver(self, forKeyPath: "contentOffset")
             scroll.removeFromSuperview()
@@ -65,23 +31,24 @@ public class LGLinkedContentView: UIView {
         if #available(iOS 11.0, *) {
             scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
         }
-        self.addSubview(scrollView)
+        scrollSuper.addSubview(scrollView)
         self.scrollView = scrollView
-        self.scrollView?.frame = self.bounds
+        self.scrollView?.frame = scrollSuper.bounds
         scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     public func setupRootView(rootView: UIView){
         if let view = self.rootView {
             view.removeObserver(self, forKeyPath: "frame")
-            _rootView = nil
+            self.rootView = nil
         }
         
-        _rootView = rootView
+        self.rootView = rootView
         rootView.addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    //MARK: 需要在observer监听中调用此方法
+    public func observerChanged(keyPath: String?) {
         if let kPath = keyPath, let scroll = self.scrollView, kPath == "contentOffset" {
             DispatchQueue.main.async {
                 if !self.canScroll {
@@ -97,25 +64,25 @@ public class LGLinkedContentView: UIView {
                             scrollBlock(true)
                         }
                     }
-                    
+
                 }
             }
-            
+
         }
-        
+
         if let kPath = keyPath, let rootView = self.rootView, kPath == "frame" {
             DispatchQueue.main.async {
-                self.frame = rootView.bounds
+                self.scrollView?.frame = rootView.bounds
             }
-            
+
         }
     }
     
-    deinit {
+    //MARK: - deinit时调用
+    public func removeAllObserver() {
         if let scroll = scrollView {
             scroll.removeObserver(self, forKeyPath: "contentOffset")
         }
-        
         if let rootView = rootView {
             rootView.removeObserver(self, forKeyPath: "frame")
         }

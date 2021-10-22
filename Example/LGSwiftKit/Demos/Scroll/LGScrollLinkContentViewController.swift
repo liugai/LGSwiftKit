@@ -10,7 +10,16 @@ import UIKit
 import LGSwiftKit
 class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtocol, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: - LGLinkedContentProtocol协议中的属性
+    weak var rootView: UIView?
     
+    var superCanScrollBlock: ((_ superCanScroll: Bool)->Void)?
+
+    var canScroll: Bool = false
+    
+    var scrollView: UIScrollView?
+    
+    // MARK: - 自有属性
     var tableTitle: String?
     
     lazy var tableView: UITableView = {
@@ -18,22 +27,17 @@ class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtoc
         return tableView
     }()
     
-    lazy var linkedContentView: LGLinkedContentView = {
-        let contentView = LGLinkedContentView(frame: CGRect.zero)
-        return contentView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    
+    // MARK: 必须实现
     func setupUI() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.view.addSubview(self.linkedContentView)
-        self.linkedContentView.setupRootView(rootView: self.view)
-        self.linkedContentView.setupScrollView(scrollView: self.tableView)
+        self.setupRootView(rootView: self.view)
+        self.setupScrollView(scrollView: self.tableView, scrollSuper: self.view)
     }
     
     
@@ -57,4 +61,13 @@ class LGScrollLinkContentViewController: UIViewController, LGLinkedContentProtoc
         return cell
     }
 
+    // MARK: 必须实现
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.observerChanged(keyPath: keyPath)
+    }
+    
+    deinit {
+        // MARK: 必须实现
+        self.removeAllObserver()
+    }
 }

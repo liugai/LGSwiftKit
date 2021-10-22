@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "LGSwiftKit"
-  s.version      = "1.0.0"
-  s.summary      = "A short description of LGSwiftKit."
+  s.version      = "1.0.1"
+  s.summary      = "涵盖常用距离、比例、颜色、图片等处理工具，轮播、loading(toast)、scroll嵌套联动等组件"
   s.description  = "my kit"
   s.homepage     = "https://github.com/liugai/LGSwiftKit"
   s.license      = "MIT"

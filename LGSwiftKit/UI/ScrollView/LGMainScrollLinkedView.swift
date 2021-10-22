@@ -12,23 +12,10 @@ import UIKit
 }
 
 public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
-
-    public weak var delegate: LGMainScrollLinkedViewDelegate?
     
+    //MARK: - 私有属性
     private lazy var mainScrollView: LGLinkedScrollView = {
         return LGLinkedScrollView()
-    }()
-    public lazy var scrollContainerView: UIScrollView = {
-        return UIScrollView()
-    }()
-    // 可以自定义一个视图插入,比如头图、
-    public lazy var headerView: UIView = {
-        return UIView()
-    }()
-    
-    // 可以自定义一个视图插入,比如segment、
-    public lazy var fixedView: UIView = {
-        return UIView()
     }()
     
     private var mainCanScroll = true
@@ -36,6 +23,26 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     public var currentContentView: LGLinkedContentProtocol?
     
     private var pageViews: Array<LGLinkedContentProtocol>?
+    
+    private lazy var scrollContainerView: UIScrollView = {
+        return UIScrollView()
+    }()
+
+    //MARK: - 公开属性
+    public weak var delegate: LGMainScrollLinkedViewDelegate?
+    
+    
+    // header视图， 可以自定义一个视图插入,比如头图、
+    public lazy var headerView: UIView = {
+        return UIView()
+    }()
+    
+    // 置顶视图，可以自定义一个视图插入,比如segment、
+    public lazy var fixedView: UIView = {
+        return UIView()
+    }()
+    
+    
 
     // MARK: - 初始化
     public override init(frame: CGRect) {
@@ -68,9 +75,9 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         self.scrollContainerView.frame = CGRect(x: 0, y: self.fixedView.frame.maxY, width: self.bounds.size.width, height: self.bounds.size.height-self.fixedView.frame.height)
         if let pages = self.pageViews {
             var originX: CGFloat = 0
-            for view in pages {
-                view.linkedContentView.rootView?.frame = CGRect(x: originX, y: 0, width: self.scrollContainerView.bounds.size.width, height: self.scrollContainerView.bounds.size.height)
-                if let rootView = view.linkedContentView.rootView {
+            for pageObj in pages {
+                pageObj.rootView?.frame = CGRect(x: originX, y: 0, width: self.scrollContainerView.bounds.size.width, height: self.scrollContainerView.bounds.size.height)
+                if let rootView = pageObj.rootView {
                     originX = rootView.frame.maxX
                 }
                 
@@ -90,6 +97,7 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         self.refreshFrame()
     }
     
+    // MARK: - 外部调用
     public func updateHeaderFrame(frame:CGRect) {
         self.headerView.frame = frame
         self.refreshFrame()
@@ -111,17 +119,17 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     
     public func setupPageViews(_ pageViews: Array<LGLinkedContentProtocol>?) {
         if let pages = self.pageViews {
-            for view in pages {
-                view.linkedContentView.rootView?.removeFromSuperview()
+            for pageObj in pages {
+                pageObj.rootView?.removeFromSuperview()
             }
             self.pageViews = nil
             self.mainCanScroll = true
         }
         if let pages = pageViews {
-            for view in pages {
-                if let rootView = view.linkedContentView.rootView {
+            for pageObj in pages {
+                if let rootView = pageObj.rootView {
                     self.scrollContainerView.addSubview(rootView)
-                    view.linkedContentView.superCanScrollBlock = { [weak self](superCanScroll) in
+                    pageObj.superCanScrollBlock = { [weak self](superCanScroll) in
                         self?.mainCanScroll = superCanScroll
                     }
                 }
@@ -139,12 +147,12 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
         if scrollView == self.mainScrollView {
             if !self.mainCanScroll {
                 scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY)
-                self.currentContentView?.linkedContentView.canScroll = true
+                self.currentContentView?.canScroll = true
             } else {
                 if scrollView.contentOffset.y >= self.fixedView.frame.minY {
                     scrollView.contentOffset = CGPoint(x: 0, y: self.fixedView.frame.minY);
                     self.mainCanScroll = false
-                    self.currentContentView?.linkedContentView.canScroll = true
+                    self.currentContentView?.canScroll = true
                 }
             }
         }
@@ -173,4 +181,13 @@ public class LGMainScrollLinkedView: UIView, UIScrollViewDelegate {
     }
    
     
+}
+
+
+class LGLinkedScrollView: UIScrollView, UIGestureRecognizerDelegate {
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
 }
