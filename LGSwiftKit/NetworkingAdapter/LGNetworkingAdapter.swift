@@ -26,18 +26,46 @@ open class LGNetWorkManager {
     
     private var baseUrl: String?
     private var headers: LGNetHeaderType?
+    private var _sessionManager: SessionManager?
+    private var sessionManager: SessionManager {
+        get {
+            return _sessionManager ?? SessionManager.default
+        }
+    }
     
     public static let manager = LGNetWorkManager()
+    
+    public var requestTimeout: TimeInterval = 10
+    public var resourceTimeout: TimeInterval = 10
     
     open func initSet(_ baseUrl: String, headers: LGNetHeaderType?) {
         self.baseUrl = baseUrl
         self.headers = headers
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = self.requestHeaders(headers: SessionManager.defaultHTTPHeaders)
+        configuration.timeoutIntervalForRequest = self.requestTimeout
+        configuration.timeoutIntervalForResource = self.resourceTimeout
+        _sessionManager = SessionManager(configuration: configuration)
     }
     
-    open func request(method:LGRequestMethod = .post, baseUrl: String? = nil, urlPath: String, headers: LGNetHeaderType?, params: LGNetParamType?, completion: ((_ error:Error?, _ data: Any?) -> Void)?) {
-    
-        if let url = URL(self.requestUrl(baseUrl: baseUrl, urlPath: urlPath)) {
-            Alamofire.request(url, method: self.requestMethod(method: method), parameters: params, headers: HTTPHeaders?)
+    open func request(method:LGRequestMethod = .post, baseUrl: String? = nil, urlPath: String, headers: LGNetHeaderType?, params: LGNetParamType?, completion: ((_ errorMsg: String?, _ data: Any?) -> Void)?) {
+        
+        if let url = URL(string: self.requestUrl(baseUrl: baseUrl, urlPath: urlPath)) {
+            self.sessionManager.request(url, method: self.requestMethod(method: method), parameters: params, headers: self.requestHeaders(headers: headers)).responseJSON { response in
+                switch response.result {
+                case .success:
+                    guard let completion = completion else {
+                        return
+                    }
+                    completion(nil, response.result.value)
+                case .failure(let error):
+                    guard let completion = completion else {
+                        return
+                    }
+                    completion(error.localizedDescription, nil)
+                }
+            }
+            
         }
         
         
@@ -63,11 +91,12 @@ open class LGNetWorkManager {
     }
     
     open func requestHeaders(headers: LGNetHeaderType? = nil) -> HTTPHeaders {
-        var headersTemp = self.headers ?? LGNetHeaderType()
-        headersTemp.merge(headers?? LGNetHeaderType()) { key, value in
-            <#code#>
+        var headersOriginal = self.headers ?? LGNetHeaderType()
+        let headerMore = headers ?? LGNetHeaderType()
+        headersOriginal.merge(headerMore) { _, new in
+            return new
         }
-        
+        return headersOriginal
     }
     
 }
