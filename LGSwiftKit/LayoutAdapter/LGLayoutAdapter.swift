@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import SnapKit
+
+public extension UIView {
+    var lg_layout: ConstraintViewDSL {
+        return self.snp
+    }
+}
+

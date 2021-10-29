@@ -8,8 +8,4 @@
 import Foundation
 import SwiftyJSON
 
-public extension Data {
-//    static func jsonString(jsonData: Data) -> String? {
-//        let
-//    }
-}
+//固定SwiftyJSON版本
